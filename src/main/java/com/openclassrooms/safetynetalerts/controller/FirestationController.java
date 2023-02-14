@@ -1,10 +1,13 @@
 package com.openclassrooms.safetynetalerts.controller;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -23,22 +26,28 @@ import lombok.AllArgsConstructor;
 @RequestMapping("/firestation")
 public class FirestationController {
 	
-	public final FirestationRepository firestationRepository;
+//	public final FirestationRepository firestationRepository;
 	
-	@PostMapping
-	public Iterable<Firestation> addPerson(@RequestBody List<Firestation> firestation) {
-		Iterable<Firestation> firestationAdded = firestationRepository.saveAll(firestation);
-	 return firestationAdded;
-	}
+//	@PostMapping
+//	public Firestation addFirestation(@RequestBody Firestation firestation) {
+//		Firestation firestationAdded = firestationRepository.addFirestation(firestation);
+//	 return firestationAdded;
+//	}
+//	
+//	@GetMapping
+//	public Map<String,String> getAllFirestations() throws IOException {
+//		Map<String, String> mapFirestations = firestationRepository.getAllFirestations();
+//		return mapFirestations;
+//	}
 	
-//	@PutMapping
-//	public void updatePerson(@PathVariable(value = "id") Long id) {
-//		 personRepository.deleteById(id);
+//	@PutMapping("/firestation/{id}")
+//	public void updateFirestation(@PathVariable(value = "id") Long id) {
+//		 firestationRepository.deleteById(id);
 //	}
 //	
 //	@DeleteMapping(value = "/")
-//	public ResponseEntity<Void> deletePerson(@RequestParam(value = "id", required = true) Long id) {
-//		personRepository.deleteById(id);
+//	public ResponseEntity<Void> deleteFirestation(@RequestParam(value = "id", required = true) Long id) {
+//		firestationRepository.deleteById(id);
 //		return new ResponseEntity<Void>(HttpStatus.GONE);
 // 	}
 	

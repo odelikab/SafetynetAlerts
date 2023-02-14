@@ -10,6 +10,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +24,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import com.jsoniter.JsonIterator;
 import com.jsoniter.any.Any;
 import com.jsoniter.any.Any.EntryIterator;
+import com.openclassrooms.safetynetalerts.model.Firestation;
 import com.openclassrooms.safetynetalerts.model.MedicalRecord;
 import com.openclassrooms.safetynetalerts.model.Person;
 import com.openclassrooms.safetynetalerts.util.Util;
@@ -54,12 +56,25 @@ JsonIterator iter = JsonIterator.parse(inputStream.readAllBytes());
 //Map<String,Object> util = (Map<String, Object>) iter.read();//
 
     Util util = iter.read(Util.class);
-    int longueur = util.persons.length;
-    List<Person> personsList = new ArrayList<>(longueur);
-    for(Person person :util.persons) {
+    int longueur = util.getPersons().length;
+//    HashMap<String,String> mapFirestations = new HashMap<>();
+//    for(Firestation firestation : util.firestations) {
+//		mapFirestations.put(firestation.getAddress(),firestation.getStation());
+//    }
+    List<Person> personsList = new ArrayList<>();
+    for(Person person :util.getPersons()) {
     	personsList.add(person);
     }
-    
+    String stringlist = personsList.toString();
+//    int sizelist = personsList.size();
+//    int i = 0;
+//    while(i<personsList.size())  {
+//	 String modifFirstname = personsList.get(i).getFirstName();
+//	 Person current=new Person();
+//	if(modifFirstname=="Jacob") personsList.get(i).setAddress(input);
+//	 i++;
+//    }
+//    
     
 //     Set keys = util.keys();
 //    Any textpersons = JsonIterator.deserialize(util.toString("persons"));
@@ -88,29 +103,5 @@ JsonIterator iter = JsonIterator.parse(inputStream.readAllBytes());
 	//	Util iter = JsonIterator.deserialize(input,Util.class);//parse(input);
 //	JsonIterator.deserialize(input).get("items", 0); // the first item
 		
-//		JsonIterator iter = JsonIterator.parse(
-//		        "{'numbers': ['1', '2', ['3', '4']]}".replace('\'', '"'));
-//		// start reading the first object ("number")
-//		assertEquals("numbers", iter.readObject());
-//		// start reading the array
-//		assertTrue(iter.readArray());
-//		assertEquals("1", iter.readString());
-//		assertTrue(iter.readArray());
-//		assertEquals("2", iter.readString());
-//		// start reading the inner array
-//		assertTrue(iter.readArray());
-//		// you can know the type of next value before reading it
-////		assertEquals(ValueType.ARRAY, iter.whatIsNext());
-//		assertTrue(iter.readArray());
-////		assertEquals(ValueType.STRING, iter.whatIsNext());
-//		assertEquals("3", iter.readString());
-//		assertTrue(iter.readArray());
-//		assertEquals("4", iter.readString());
-//		// end inner array
-//		assertFalse(iter.readArray());
-//		// end outer array
-//		assertFalse(iter.readArray());
-//		// end object "number"
-//		assertNull(iter.readObject());
 	}
 }

@@ -9,8 +9,8 @@ import jakarta.persistence.Table;
 import lombok.Data;
 
 @Data
-@Entity
-@Table(name = "persons")
+//@Entity
+//@Table(name = "persons")
 public class Person {
 	
 	@Id

@@ -23,32 +23,30 @@ import org.springframework.web.bind.annotation.*;
 public class PersonController {
 	
 	@Autowired
-//	private PersonServiceImpl personService;
-	private PersonRepository personRepository;
+	private PersonServiceImpl personService;
+//	private PersonRepository personRepository;
 
 	@GetMapping("/all")
-	
-	public List<Person> getPersons() throws IOException  {
-		List<Person> persons = personRepository.getAllPersons();
+	@ResponseBody
+	public List<Person> getPersons()  {
+		List<Person> persons = personService.getAllPersons();
 		return persons;
 	}
 	
-//	@PostMapping
-//	public Iterable<Person> addPerson(@RequestBody List<Person> person) {
-//		Iterable<Person> personAdded = personRepository.saveAll(person);
-//	 return personAdded;
-//	}
+	@PostMapping
+	public Person addPerson(@RequestBody Person person) {
+		Person personAdded = personService.addPerson(person);
+	 return personAdded;
+	}
 //	
 //	@PutMapping(value = "/")
 //	public void updatePerson(@PathVariable(value = "id") Long id) {
 //		 personRepository.deleteById(id);
 //	}
 //	
-//	@DeleteMapping(value = "/")
-//	public ResponseEntity<Void> deletePerson(@RequestParam(value = "id", required = true) Long id) {
-//		personRepository.deleteById(id);
-//		return new ResponseEntity<Void>(HttpStatus.GONE);
-// 	}
-	
-
+	@DeleteMapping("/{firstName}/{lastName}")
+	public Person deletePerson(@PathVariable String firstName, @PathVariable String lastName) throws Exception {
+		Person personDeleted = personService.deletePerson(firstName,lastName);
+		return personDeleted;
+ 	}
 }

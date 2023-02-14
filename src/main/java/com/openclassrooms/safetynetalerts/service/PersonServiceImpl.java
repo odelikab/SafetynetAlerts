@@ -1,13 +1,11 @@
 package com.openclassrooms.safetynetalerts.service;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.jsoniter.JsonIterator;
 import com.openclassrooms.safetynetalerts.model.Person;
 import com.openclassrooms.safetynetalerts.repositery.PersonRepository;
 
@@ -19,21 +17,25 @@ import lombok.Data;
 @Service
 public class PersonServiceImpl  {
 	
+	@Autowired
+	private PersonRepository personRepository;
 	
-	private final PersonRepository personRepository;
+	public List<Person> getAllPersons()    {
+	return personRepository.getAllPersons();
+	}
 	
-
-	
-//	public Person[] getPersons() throws IOException {
-//		Person[] persons = personRepository.getAllPersons();
-//		return persons;
-//	}
-
-
-
-//	public Person[] getAllPersons() throws IOException {
-//		// TODO Auto-generated method stub
-//		Person[] persons = personRepository.getAllPersons();
-//		return persons;
-//	}	
+	public Person addPerson(Person person)  {
+		personRepository.addPerson(person);
+		return person;
+	}
+    public Person deletePerson(String firstName, String lastName)   {
+    	return personRepository.deletePerson(firstName,lastName);
+    }
+	private Person getValidPerson(String lastName, String firstName) throws Exception {
+        Optional<Person> optionalPerson = personRepository.findOneByNameAndFirstName(lastName, firstName);
+        if (optionalPerson.isEmpty()){
+            throw new Exception() ;
+        }
+        return optionalPerson.get();
+	}
 }

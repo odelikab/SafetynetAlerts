@@ -7,9 +7,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
 
-@Entity
+//@Entity
 @Data
-@Table(name = "firestations")
+//@Table(name = "firestations")
 public class Firestation {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
