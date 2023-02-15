@@ -48,4 +48,11 @@ public class PersonController {
 		Person personDeleted = personService.deletePerson(firstName,lastName);
 		return personDeleted;
  	}
+	
+	@GetMapping("/{firstName}/{lastName}")
+	public Person findByName(@PathVariable String firstName, @PathVariable String lastName) throws Exception {
+		Person person = personService.findByName(firstName,lastName);
+		return person;
+ 	}
+
 }

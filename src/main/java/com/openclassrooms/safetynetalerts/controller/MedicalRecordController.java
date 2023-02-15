@@ -28,7 +28,7 @@ public class MedicalRecordController {
 	private MedicalRecordService medicalRecordService;
 //	private MedicalRecordRepository medicalRecordRepository;
 
-	@GetMapping("/")
+	@GetMapping("")
 	@ResponseBody
 	public List<MedicalRecord> getMedicalRecords()  {
 		List<MedicalRecord> medicalRecords = medicalRecordService.getAllMedicalRecords();

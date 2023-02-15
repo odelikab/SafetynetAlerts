@@ -24,10 +24,15 @@ public class PersonServiceImpl  {
 	return personRepository.getAllPersons();
 	}
 	
+	public Person findByName(String firstName, String lastName)  {
+		return personRepository.findByName(firstName, lastName);
+	}
+	
 	public Person addPerson(Person person)  {
 		personRepository.addPerson(person);
 		return person;
 	}
+	
     public Person deletePerson(String firstName, String lastName)   {
     	return personRepository.deletePerson(firstName,lastName);
     }

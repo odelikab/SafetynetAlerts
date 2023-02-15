@@ -26,6 +26,28 @@ public FirestationRepository() throws IOException  {
 	public List<Firestation> getAllFirestations() throws IOException   {
 		return listFirestations;
 	}
+	
+	public Firestation findByStationNumber(String stationNumber) {
+		int i = 0;
+		while (i < listFirestations.size()) {
+			if (listFirestations.get(i).getStation().equals(stationNumber)) {
+				return listFirestations.get(i);
+			}
+			i++;
+		}
+		return null;
+	}
+	
+	public Firestation findByAddress(String stationAddress) {
+		int i = 0;
+		while (i < listFirestations.size()) {
+			if (listFirestations.get(i).getAddress().equals(stationAddress)) {
+				return listFirestations.get(i);
+			}
+			i++;
+		}
+		return null;
+	}
 
 	public Firestation addFirestation(Firestation firestation) {
 		// TODO Auto-generated method stub
@@ -33,31 +55,25 @@ public FirestationRepository() throws IOException  {
 		return firestation;
 	}
 	
-	public Firestation updateFirestation(Firestation firestation) {
-		int i = 0;
-		while (i < listFirestations.size()) {
-			if (listFirestations.get(i).getAddress().equals(firestation.getAddress())) {
-				listFirestations.set(i, firestation);
-				break;
-			}
-			i++;
-		}
-		return firestation;
+	public Firestation updateFirestation(Firestation firestationUpdate) {
+//		int i = 0;
+//		while (i < listFirestations.size()) {
+//			if (listFirestations.get(i).getAddress().equals(firestation.getAddress())) {
+//				listFirestations.set(i, firestation);
+//				break;
+//			}
+//			i++;
+//		}
+		 Firestation firestation = findByAddress(firestationUpdate.getAddress());
+		listFirestations.set(listFirestations.indexOf(firestation), firestationUpdate);
+		return firestationUpdate;
 	}
 	
 	public Firestation deleteFirestation(Firestation firestation)  {
-		int i = 0;
-		int indexToRemove = 0;
-		while (i < listFirestations.size()) {
-			if (listFirestations.get(i).getAddress().equals(firestation.getAddress())
-					&& listFirestations.get(i).getStation().equals(firestation.getStation())) {
-				indexToRemove = i;
-				break;
-			}
-			i++;
-		}
-		listFirestations.remove(indexToRemove);
+		listFirestations.remove(firestation);
 		return firestation;
 		
 	}
+	
+	
 }

@@ -30,44 +30,37 @@ public class MedicalRecordRepository {
 
 	}
 	
-	public MedicalRecord addMedicalRecord(MedicalRecord medicalRecord)   {
-		listMedicalRecords.add(medicalRecord);
-		return medicalRecord;
-		
- 	}
-	
-	public MedicalRecord deleteMedicalRecord(String firstName, String lastName) {
+	public MedicalRecord findByName(String firstName, String lastName) {
 		int i = 0;
-		Iterator<MedicalRecord> itr = listMedicalRecords.iterator();
-
-		while (itr.hasNext()) {
-			String firstNameCurrent = listMedicalRecords.get(i).getFirstName();
-			String lastNameCurrent = listMedicalRecords.get(i).getLastName();
-
-			if (firstNameCurrent.equals(firstName) && lastNameCurrent.equals(lastName)) {
-				int indexToRemove = listMedicalRecords.indexOf(itr.next());
-//				listPersons.remove(indexToRemove);
-				itr.remove();
-				break;
+		MedicalRecord medicalRecord = new MedicalRecord();
+		while(i<listMedicalRecords.size()) {
+			medicalRecord = listMedicalRecords.get(i);
+			if(medicalRecord.getFirstName().equals(firstName)
+					&& medicalRecord.getLastName().equals(lastName)) {
+				return medicalRecord;
 			}
 			i++;
 		}
-		return listMedicalRecords.get(i);
+		return null;
+	}
+	
+	public MedicalRecord addMedicalRecord(MedicalRecord medicalRecord)   {
+		listMedicalRecords.add(medicalRecord);
+		return medicalRecord;
+ 	}
+	
+	public MedicalRecord deleteMedicalRecord(String firstName, String lastName) {
+		MedicalRecord medicalRecord = findByName(firstName,lastName);
+		listMedicalRecords.remove(medicalRecord);
+		return medicalRecord;
 	}
 
 	public MedicalRecord updateMedicalRecord(MedicalRecord medicalRecord) {
-		int indexToUpdate = 0;
-		while (indexToUpdate < listMedicalRecords.size() - 1) {
-			MedicalRecord personToUpdate = listMedicalRecords.get(indexToUpdate);
-			if (personToUpdate.getFirstName().equals(medicalRecord.getFirstName())
-					&& personToUpdate.getLastName().equals(medicalRecord.getLastName())) {
-				personToUpdate.setBirthdate(medicalRecord.getBirthdate());
-				personToUpdate.setMedication(medicalRecord.getMedication());
-				personToUpdate.setAllergies(medicalRecord.getAllergies());
-				break;
-			}
-			indexToUpdate++;
-		}
+		
+		String firstName= medicalRecord.getFirstName();
+		String lastName = medicalRecord.getLastName();
+		MedicalRecord medicalRecordOrigin = findByName(firstName,lastName);
+		listMedicalRecords.set(listMedicalRecords.indexOf(medicalRecordOrigin), medicalRecord);
 		return medicalRecord;
 	}
 }
