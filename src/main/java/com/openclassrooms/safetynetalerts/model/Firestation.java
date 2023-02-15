@@ -11,9 +11,9 @@ import lombok.Data;
 @Data
 //@Table(name = "firestations")
 public class Firestation {
-	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+//	@Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    private Long id;
 	
 	private String address;
 	private String station;

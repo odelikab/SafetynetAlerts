@@ -1,45 +1,63 @@
 package com.openclassrooms.safetynetalerts.repositery;
 
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
-import com.jsoniter.JsonIterator;
 import com.openclassrooms.safetynetalerts.model.Firestation;
-import com.openclassrooms.safetynetalerts.model.Person;
 import com.openclassrooms.safetynetalerts.util.Util;
 
+@Repository
 public class FirestationRepository  {
 
-public Map<String, String> mapFirestations;
+public List<Firestation> listFirestations = new ArrayList<Firestation>();
 	
-//	public Util dataExtract() throws IOException{
-//	InputStream inputStream = new FileInputStream("src/main/resources/data.json");
-//	JsonIterator iter = JsonIterator.parse(inputStream.readAllBytes());
-//	Util util = iter.read(Util.class);
-//	iter.close();
-//	inputStream.close();
-//	return util;
-//	}
-//	
-//	public Map<String,String> getAllFirestations() throws IOException   {
-//		Firestation[] allFirestations = dataExtract().getFirestations();
-//		for(Firestation firestation : allFirestations) {
-//			mapFirestations.put(firestation.getAddress(),firestation.getStation());
-//		}
-//		
-//		return mapFirestations;
-//
-//		
-//	}
+public FirestationRepository() throws IOException  {
+	Firestation[] arrayFirestation = Util.getInstance().getFirestations();
+	for (Firestation firestation : arrayFirestation) {
+		listFirestations.add(firestation);
+	}
+}
+	
+	public List<Firestation> getAllFirestations() throws IOException   {
+		return listFirestations;
+	}
 
 	public Firestation addFirestation(Firestation firestation) {
 		// TODO Auto-generated method stub
-		mapFirestations.put(firestation.getAddress(),firestation.getStation());
+		listFirestations.add(firestation);
 		return firestation;
+	}
+	
+	public Firestation updateFirestation(Firestation firestation) {
+		int i = 0;
+		while (i < listFirestations.size()) {
+			if (listFirestations.get(i).getAddress().equals(firestation.getAddress())) {
+				listFirestations.set(i, firestation);
+				break;
+			}
+			i++;
+		}
+		return firestation;
+	}
+	
+	public Firestation deleteFirestation(Firestation firestation)  {
+		int i = 0;
+		int indexToRemove = 0;
+		while (i < listFirestations.size()) {
+			if (listFirestations.get(i).getAddress().equals(firestation.getAddress())
+					&& listFirestations.get(i).getStation().equals(firestation.getStation())) {
+				indexToRemove = i;
+				break;
+			}
+			i++;
+		}
+		listFirestations.remove(indexToRemove);
+		return firestation;
+		
 	}
 }

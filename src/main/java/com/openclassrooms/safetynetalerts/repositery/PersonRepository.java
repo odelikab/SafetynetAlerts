@@ -1,8 +1,6 @@
 package com.openclassrooms.safetynetalerts.repositery;
 
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -45,37 +43,47 @@ public class PersonRepository {
 		
  	}
 	
-	public Person deletePerson(String firstName, String lastName)  {
+	public Person deletePerson(String firstName, String lastName) {
 		int i = 0;
-//		listPersons.c
-//		Object obj = listPersons.toString();
-//		listPersons.indexOf(obj);
 		Iterator<Person> itr = listPersons.iterator();
 
 		while (itr.hasNext()) {
-			String firstNameCurrent = itr.next().getFirstName();
-			String lastNameCurrent = itr.next().getLastName();
+			String firstNameCurrent = listPersons.get(i).getFirstName();
+			String lastNameCurrent = listPersons.get(i).getLastName();
 
 			if (firstNameCurrent.equals(firstName) && lastNameCurrent.equals(lastName)) {
-//				 && itr.next().getLastName() == lastName
 				int indexToRemove = listPersons.indexOf(itr.next());
-				
-				listPersons.remove(indexToRemove);
+//				listPersons.remove(indexToRemove);
 				itr.remove();
 				break;
 			}
+			i++;
 		}
-		return listPersons.get(0);
-	}
-	
-		public void updatePerson(Person person) throws IOException  {
-
+		return listPersons.get(i);
 	}
 
-	public Optional<Person> findOneByNameAndFirstName(String lastName, String firstName) {
-		// TODO Auto-generated method stub
-		return null;
+	public Person updatePerson(Person person) {
+		int indexToUpdate = 0;
+		while (indexToUpdate < listPersons.size() - 1) {
+			Person personToUpdate = listPersons.get(indexToUpdate);
+			if (personToUpdate.getFirstName().equals(person.getFirstName())
+					&& personToUpdate.getLastName().equals(person.getLastName())) {
+				personToUpdate.setAddress(person.getAddress());
+				personToUpdate.setCity(person.getCity());
+				personToUpdate.setEmail(person.getEmail());
+				personToUpdate.setPhone(person.getPhone());
+				personToUpdate.setZip(person.getZip());
+				break;
+			}
+			indexToUpdate++;
+		}
+		return person;
 	}
+
+//	public Optional<Person> findOneByNameAndFirstName(String lastName, String firstName) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 	
 	
 }

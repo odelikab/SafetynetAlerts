@@ -42,7 +42,7 @@ public class Util {
 	public void setPersons(Person[] persons) {
 		this.persons = persons;
 	}
-	public MedicalRecord[] getMedicalrecords() throws IOException {
+	public MedicalRecord[] getMedicalRecords() throws IOException {
 		return getInstance().medicalrecords;
 		
 	}

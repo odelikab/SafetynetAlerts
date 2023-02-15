@@ -2,7 +2,6 @@ package com.openclassrooms.safetynetalerts.controller;
 
 import lombok.AllArgsConstructor;
 
-import com.jsoniter.any.Any;
 import com.openclassrooms.safetynetalerts.model.Person;
 import com.openclassrooms.safetynetalerts.repositery.PersonRepository;
 import com.openclassrooms.safetynetalerts.service.PersonService;
@@ -26,7 +25,7 @@ public class PersonController {
 	private PersonServiceImpl personService;
 //	private PersonRepository personRepository;
 
-	@GetMapping("/all")
+	@GetMapping("/")
 	@ResponseBody
 	public List<Person> getPersons()  {
 		List<Person> persons = personService.getAllPersons();
@@ -39,10 +38,10 @@ public class PersonController {
 	 return personAdded;
 	}
 //	
-//	@PutMapping(value = "/")
-//	public void updatePerson(@PathVariable(value = "id") Long id) {
-//		 personRepository.deleteById(id);
-//	}
+	@PutMapping//("/{firstName}/{lastName}")
+	public Person updatePerson(@RequestBody Person person) {
+		return personService.updatePerson(person);
+	}
 //	
 	@DeleteMapping("/{firstName}/{lastName}")
 	public Person deletePerson(@PathVariable String firstName, @PathVariable String lastName) throws Exception {

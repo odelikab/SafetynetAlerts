@@ -31,11 +31,15 @@ public class PersonServiceImpl  {
     public Person deletePerson(String firstName, String lastName)   {
     	return personRepository.deletePerson(firstName,lastName);
     }
-	private Person getValidPerson(String lastName, String firstName) throws Exception {
-        Optional<Person> optionalPerson = personRepository.findOneByNameAndFirstName(lastName, firstName);
-        if (optionalPerson.isEmpty()){
-            throw new Exception() ;
-        }
-        return optionalPerson.get();
-	}
+    
+    public Person updatePerson(Person person)  {
+    	return personRepository.updatePerson(person);
+    }
+//	private Person getValidPerson(String lastName, String firstName) throws Exception {
+//        Optional<Person> optionalPerson = personRepository.findOneByNameAndFirstName(lastName, firstName);
+//        if (optionalPerson.isEmpty()){
+//            throw new Exception() ;
+//        }
+//        return optionalPerson.get();
+//	}
 }

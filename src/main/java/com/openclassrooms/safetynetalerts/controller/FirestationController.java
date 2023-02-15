@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.openclassrooms.safetynetalerts.model.Firestation;
-import com.openclassrooms.safetynetalerts.repositery.FirestationRepository;
+import com.openclassrooms.safetynetalerts.service.FirestationService;
 
 import lombok.AllArgsConstructor;
 
@@ -26,31 +27,31 @@ import lombok.AllArgsConstructor;
 @RequestMapping("/firestation")
 public class FirestationController {
 	
-//	public final FirestationRepository firestationRepository;
+	@Autowired
+	public FirestationService firestationService;
 	
-//	@PostMapping
-//	public Firestation addFirestation(@RequestBody Firestation firestation) {
-//		Firestation firestationAdded = firestationRepository.addFirestation(firestation);
-//	 return firestationAdded;
-//	}
-//	
-//	@GetMapping
-//	public Map<String,String> getAllFirestations() throws IOException {
-//		Map<String, String> mapFirestations = firestationRepository.getAllFirestations();
-//		return mapFirestations;
-//	}
+	@PostMapping
+	public Firestation addFirestation(@RequestBody Firestation firestation) {
+		Firestation firestationAdded = firestationService.addFirestation(firestation);
+	 return firestationAdded;
+	}
 	
-//	@PutMapping("/firestation/{id}")
-//	public void updateFirestation(@PathVariable(value = "id") Long id) {
-//		 firestationRepository.deleteById(id);
-//	}
-//	
-//	@DeleteMapping(value = "/")
-//	public ResponseEntity<Void> deleteFirestation(@RequestParam(value = "id", required = true) Long id) {
-//		firestationRepository.deleteById(id);
-//		return new ResponseEntity<Void>(HttpStatus.GONE);
-// 	}
+	@GetMapping
+	public List<Firestation> getAllFirestations() throws IOException  {
+		List<Firestation> mapFirestations = firestationService.getAllFirestations();
+		return mapFirestations;
+	}
 	
+	@PutMapping("/{station}")
+	public Firestation updateFirestation(@PathVariable("station") String station, @RequestBody Firestation firestation) {
+		 return firestationService.updateFirestation(firestation);
+	}
+	
+	@DeleteMapping("/{station}")
+	public ResponseEntity<Firestation> deleteFirestation(@PathVariable("station") String station, @RequestBody Firestation firestation) {
+		firestationService.deleteFirestation(firestation);
+		return new ResponseEntity<>(firestation,HttpStatus.GONE);
+ 	}
 
 }
 
