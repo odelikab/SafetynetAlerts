@@ -3,22 +3,22 @@ package com.openclassrooms.safetynetalerts.model;
 
 import java.util.Objects;
 
-import jakarta.persistence.Entity;
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
-//@Entity
-//@Table(name = "persons")
+@AllArgsConstructor
+//@JsonInclude(JsonInclude.Include.NON_NULL)
+
 public class Person {
 	
 //	@Id
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
 //    private Long id;
-	
     private String firstName;
     private String lastName;
     private String address;
@@ -44,4 +44,9 @@ public class Person {
         return Objects.equals(firstName, person.firstName)
                 && Objects.equals(lastName, person.lastName);
     }
+
+	public Person() {
+		// TODO Auto-generated constructor stub
+	}
+
 }

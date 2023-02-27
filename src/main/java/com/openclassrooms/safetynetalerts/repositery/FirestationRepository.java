@@ -15,38 +15,45 @@ import com.openclassrooms.safetynetalerts.util.Util;
 public class FirestationRepository  {
 
 public List<Firestation> listFirestations = new ArrayList<Firestation>();
+public Map<Integer, List<String>> mapFirestation = new HashMap<Integer, List<String>>();
 	
 public FirestationRepository() throws IOException  {
 	Firestation[] arrayFirestation = Util.getInstance().getFirestations();
 	for (Firestation firestation : arrayFirestation) {
 		listFirestations.add(firestation);
+		if (!mapFirestation.containsKey(Integer.valueOf(firestation.getStation()))) {
+		mapFirestation.put(Integer.valueOf(firestation.getStation()), new ArrayList<String>());
+		}
+		mapFirestation.get(Integer.valueOf(firestation.getStation())).add(firestation.getAddress());
 	}
 }
 	
-	public List<Firestation> getAllFirestations() throws IOException   {
-		return listFirestations;
+	public Map<Integer, List<String>> getAllFirestations() throws IOException   {
+		return mapFirestation;
 	}
 	
-	public Firestation findByStationNumber(String stationNumber) {
+	public ArrayList<String> findAddressByStationNumber(int stationNumber) {
 		int i = 0;
+		ArrayList<String> listAddressbyStationNumber = new ArrayList<>();
 		while (i < listFirestations.size()) {
-			if (listFirestations.get(i).getStation().equals(stationNumber)) {
-				return listFirestations.get(i);
+			if (Integer.valueOf(listFirestations.get(i).getStation())==(stationNumber)) {
+				listAddressbyStationNumber.add(listFirestations.get(i).getAddress());
 			}
 			i++;
 		}
-		return null;
+		return listAddressbyStationNumber;
 	}
 	
-	public Firestation findByAddress(String stationAddress) {
+	public List<Firestation> findFirestationByAddress(String stationAddress) {
 		int i = 0;
+		ArrayList<Firestation> listStationbyAddress = new ArrayList<Firestation>();
 		while (i < listFirestations.size()) {
 			if (listFirestations.get(i).getAddress().equals(stationAddress)) {
-				return listFirestations.get(i);
+				listStationbyAddress.add(listFirestations.get(i));
 			}
 			i++;
 		}
-		return null;
+		return listStationbyAddress;
 	}
 
 	public Firestation addFirestation(Firestation firestation) {
@@ -56,16 +63,9 @@ public FirestationRepository() throws IOException  {
 	}
 	
 	public Firestation updateFirestation(Firestation firestationUpdate) {
-//		int i = 0;
-//		while (i < listFirestations.size()) {
-//			if (listFirestations.get(i).getAddress().equals(firestation.getAddress())) {
-//				listFirestations.set(i, firestation);
-//				break;
-//			}
-//			i++;
-//		}
-		 Firestation firestation = findByAddress(firestationUpdate.getAddress());
-		listFirestations.set(listFirestations.indexOf(firestation), firestationUpdate);
+		 List<Firestation> firestation = findFirestationByAddress(firestationUpdate.getAddress());
+		 firestation.get(0);
+		listFirestations.set(listFirestations.indexOf(firestation.get(0)), firestationUpdate);
 		return firestationUpdate;
 	}
 	

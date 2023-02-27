@@ -1,5 +1,10 @@
 package com.openclassrooms.safetynetalerts.model;
 
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.jsoniter.fuzzy.MaybeStringIntDecoder;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -9,6 +14,7 @@ import lombok.Data;
 
 //@Entity
 @Data
+//@JsoniterAnnotationSupport.
 //@Table(name = "firestations")
 public class Firestation {
 //	@Id
@@ -17,5 +23,6 @@ public class Firestation {
 	
 	private String address;
 	private String station;
+	private List<Person> persons;
 
 }

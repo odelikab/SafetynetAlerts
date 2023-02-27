@@ -1,5 +1,8 @@
 package com.openclassrooms.safetynetalerts.service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +26,13 @@ public class MedicalRecordService {
 	return medicalRecordRepository.getAllMedicalRecords();
 	}
 	
-	public MedicalRecord addMedicalRecord(MedicalRecord medicalRecord)  {
-		medicalRecordRepository.addMedicalRecord(medicalRecord);
+	public MedicalRecord findByName(String firstName, String lastName)  {
+		MedicalRecord medicalRecord = medicalRecordRepository.findByName(firstName, lastName);
 		return medicalRecord;
+	}
+	
+	public MedicalRecord addMedicalRecord(MedicalRecord medicalRecord)  {
+		return medicalRecordRepository.addMedicalRecord(medicalRecord);
 	}
 	
     public MedicalRecord deleteMedicalRecord(String firstName, String lastName)   {
@@ -35,5 +42,14 @@ public class MedicalRecordService {
     public MedicalRecord updateMedicalRecord(MedicalRecord medicalRecord)  {
     	return medicalRecordRepository.updateMedicalRecord(medicalRecord);
     }
+
+	public Long getAge(String firstName, String lastName) throws ParseException {
+		// TODO Auto-generated method stub
+		MedicalRecord medicalRecord = medicalRecordRepository.findByName(firstName, lastName);
+		String birthdate = medicalRecord.getBirthdate();
+	    Date dateBirthdate=new SimpleDateFormat("dd/MM/yyyy").parse(birthdate);  
+	    long age = dateBirthdate.getTime()/1000/60/60/24/365;
+		return age;
+	}
 
 }

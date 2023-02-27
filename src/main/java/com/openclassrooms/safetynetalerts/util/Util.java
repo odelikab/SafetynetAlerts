@@ -5,14 +5,17 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collection;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.jsoniter.annotation.*;
 import com.jsoniter.JsonIterator;
 import com.jsoniter.any.Any;
+import com.jsoniter.fuzzy.MaybeStringIntDecoder;
 import com.openclassrooms.safetynetalerts.model.Firestation;
 import com.openclassrooms.safetynetalerts.model.MedicalRecord;
 import com.openclassrooms.safetynetalerts.model.Person;
 
 import lombok.Data;
-//@Data
+
 public class Util {
 	//singleton
 	private static Util instance;
@@ -26,6 +29,7 @@ public class Util {
     
 	public static Util getInstance() throws IOException{
 		if(instance==null) {
+
 			InputStream inputStream = new FileInputStream("src/main/resources/data.json");
 			JsonIterator iter = JsonIterator.parse(inputStream.readAllBytes());
 			instance = iter.read(Util.class);

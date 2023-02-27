@@ -26,26 +26,34 @@ import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("/firestation")
+@RequestMapping
 public class FirestationController {
 	
 	@Autowired
 	private FirestationService firestationService;
 	
-	@PostMapping
+	@PostMapping("/firestation")
 	public Firestation addFirestation(@RequestBody Firestation firestation) {
 		Firestation firestationAdded = firestationService.addFirestation(firestation);
 	 return firestationAdded;
 	}
 	
-	@GetMapping
-	@ResponseBody
-	public List<Firestation> getAllFirestations() throws IOException  {
-		List<Firestation> mapFirestations = firestationService.getAllFirestations();
-		return mapFirestations;
+//	@GetMapping("/firestation")
+//	@ResponseBody
+//	public Map<String, List<String>> getAllFirestations() throws IOException  {
+//		Map<String, List<String>> listFirestations = firestationService.getAllFirestations();
+//		return listFirestations;
+//	}
+	
+	@GetMapping("firestation")
+	public Object findByStationNumber(@RequestParam(required=false, defaultValue = "0") int station) throws IOException {
+		if(station==0) {
+			return firestationService.getAllFirestations();
+		}
+		return firestationService.findByStationNumber(station);
 	}
 	
-	@PutMapping("/{station}")
+	@PutMapping("firestation/{station}")
 	public Firestation updateFirestation(@PathVariable("station") String station, @RequestBody Firestation firestation) {
 		 return firestationService.updateFirestation(firestation);
 	}
@@ -56,12 +64,15 @@ public class FirestationController {
 		return new ResponseEntity<>(firestation,HttpStatus.GONE);
  	}
 	
-//	@GetMapping("/")
-//	public List<String> getStationPersons(@RequestParam String stationNumber) throws IOException   {
-//		List<String> stationPersons = firestationService.findByStationNumber(stationNumber);
-//		return stationPersons;
-//	}
-
+	@GetMapping("/phoneAlert")
+	public List<String> phoneAlert(@RequestParam("firestation") int station)  {
+		return firestationService.getPhoneNumberByStation(station);
+	}
+	
+	@GetMapping("/fire")
+	public Object getPersonsByAddress(@RequestParam String address)  {
+		return firestationService.getPersonsByAddress(address);
+	}
 }
 
 

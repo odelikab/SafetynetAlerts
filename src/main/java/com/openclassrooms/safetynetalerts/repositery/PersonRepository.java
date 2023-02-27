@@ -1,7 +1,12 @@
 package com.openclassrooms.safetynetalerts.repositery;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
@@ -12,6 +17,7 @@ import org.springframework.stereotype.Repository;
 import com.jsoniter.JsonIterator;
 import com.jsoniter.any.Any;
 import com.openclassrooms.safetynetalerts.model.Person;
+import com.openclassrooms.safetynetalerts.model.DTO.PersonDTO;
 import com.openclassrooms.safetynetalerts.util.Util;
 
 @Repository
@@ -20,12 +26,12 @@ public class PersonRepository {
 	public List<Person> listPersons = new ArrayList<Person>();
 	MedicalRecordRepository medicalRecordRepository = new MedicalRecordRepository();
 	
-		public PersonRepository() throws IOException  {
+		public PersonRepository() throws IOException, ParseException  {
 			Person[] arrayPersons = Util.getInstance().getPersons();
 			for (Person person : arrayPersons) {
 				listPersons.add(person);
 			}
-			getPersonsBirthdate();
+//			getPersonsAge();
 		}
 	
 	public List<Person> getAllPersons()   {
@@ -36,7 +42,6 @@ public class PersonRepository {
 	public Person findByName(String firstName, String lastName) {
 		int i = 0;
 		Person person = new Person();
-//		person.setFirstName(firstName);
 		while(i<listPersons.size()) {
 			person = listPersons.get(i);
 			if(person.getFirstName().equals(firstName)
@@ -44,18 +49,21 @@ public class PersonRepository {
 				return person;
 			}
 			i++;
-//	    listPersons.indexOf(person.getFirstName());
 		}
 		return null;
 	}
 	
-	public void getPersonsBirthdate() {
+	public List<String> getFamilyMembers(String firstName, String lastName) {
 		int i = 0;
+		List<String> family = new ArrayList<>();
 		while (i < listPersons.size()) {
-			listPersons.get(i).setBirthdate(medicalRecordRepository.getAllMedicalRecords().get(i).getBirthdate());
+			if (listPersons.get(i).getLastName().equals(lastName) && listPersons.get(i).getFirstName() != firstName) {
+				family.add(listPersons.get(i).getFirstName());
+//				listPersons.get(i).setFamilyMembers(family);
+			}
 			i++;
 		}
-		return;
+		return family;
 	}
 	
 	public Person addPerson(Person person)   {
@@ -103,5 +111,4 @@ public class PersonRepository {
 //			indexToUpdate++;
 //		}
 	}
-
 }
