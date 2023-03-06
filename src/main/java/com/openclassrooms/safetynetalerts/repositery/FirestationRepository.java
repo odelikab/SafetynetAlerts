@@ -32,16 +32,8 @@ public FirestationRepository() throws IOException  {
 		return mapFirestation;
 	}
 	
-	public ArrayList<String> findAddressByStationNumber(int stationNumber) {
-		int i = 0;
-		ArrayList<String> listAddressbyStationNumber = new ArrayList<>();
-		while (i < listFirestations.size()) {
-			if (Integer.valueOf(listFirestations.get(i).getStation())==(stationNumber)) {
-				listAddressbyStationNumber.add(listFirestations.get(i).getAddress());
-			}
-			i++;
-		}
-		return listAddressbyStationNumber;
+	public List<String> findAddressByStationNumber(int stationNumber) {
+		return mapFirestation.get(stationNumber);
 	}
 	
 	public List<Firestation> findFirestationByAddress(String stationAddress) {
@@ -58,7 +50,9 @@ public FirestationRepository() throws IOException  {
 
 	public Firestation addFirestation(Firestation firestation) {
 		// TODO Auto-generated method stub
-		listFirestations.add(firestation);
+		Integer station = Integer.valueOf(firestation.getStation());
+		mapFirestation.put(station,new ArrayList<>());
+		mapFirestation.get(Integer.valueOf(firestation.getStation())).add(firestation.getAddress());
 		return firestation;
 	}
 	

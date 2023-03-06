@@ -16,11 +16,11 @@ import lombok.Data;
 //@Entity
 public class MedicalRecord {
 	
-	@JsonIgnore
+//	@JsonIgnore
     private String firstName;
-	@JsonIgnore
+//	@JsonIgnore
     private String lastName;
-	@JsonIgnore
+//	@JsonIgnore
     private String birthdate;
     private String[] medication;
     private String[] allergies;

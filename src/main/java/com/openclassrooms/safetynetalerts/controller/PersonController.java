@@ -68,18 +68,19 @@ public class PersonController {
 	}
 
 	@GetMapping("/personInfo")
-	public Object personInfo(@RequestParam String firstName, @RequestParam String lastName) throws ParseException  {
+	public Object personInfo(@RequestParam(required=false) String firstName, @RequestParam String lastName) throws ParseException  {
 		return personService.getPersonInfo(firstName, lastName);
 	}
 	
 	@GetMapping("/childAlert")
-	public MappingJacksonValue childAlert(@RequestParam String address) {
-		Iterable<Person> persons = personService.getChildByAddress(address);
-		SimpleBeanPropertyFilter monFiltre = SimpleBeanPropertyFilter.filterOutAllExcept("firstName", "lastName",
-				"age","familyMembers");
-		FilterProvider listDeNosFiltres = new SimpleFilterProvider().addFilter("monFiltreDynamique", monFiltre);
-		MappingJacksonValue produitsFiltres = new MappingJacksonValue(persons);
-		produitsFiltres.setFilters(listDeNosFiltres);
-		return produitsFiltres;
+	public Iterable<PersonDTO> childAlert(@RequestParam String address) throws ParseException {
+		Iterable<PersonDTO> persons = personService.getChildByAddress(address);
+//		SimpleBeanPropertyFilter monFiltre = SimpleBeanPropertyFilter.filterOutAllExcept("firstName", "lastName",
+//				"age","familyMembers");
+//		FilterProvider listDeNosFiltres = new SimpleFilterProvider().addFilter("monFiltreDynamique", monFiltre);
+//		MappingJacksonValue produitsFiltres = new MappingJacksonValue(persons);
+//		produitsFiltres.setFilters(listDeNosFiltres);
+//		return produitsFiltres;
+		return persons;
 	}
 }

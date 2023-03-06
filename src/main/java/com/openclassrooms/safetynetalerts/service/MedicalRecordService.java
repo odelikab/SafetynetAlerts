@@ -22,6 +22,9 @@ public class MedicalRecordService {
 	@Autowired
 	private MedicalRecordRepository medicalRecordRepository;
 	
+	public MedicalRecordService() {
+	}
+	
 	public List<MedicalRecord> getAllMedicalRecords()    {
 	return medicalRecordRepository.getAllMedicalRecords();
 	}
@@ -48,7 +51,7 @@ public class MedicalRecordService {
 		MedicalRecord medicalRecord = medicalRecordRepository.findByName(firstName, lastName);
 		String birthdate = medicalRecord.getBirthdate();
 	    Date dateBirthdate=new SimpleDateFormat("dd/MM/yyyy").parse(birthdate);  
-	    long age = dateBirthdate.getTime()/1000/60/60/24/365;
+	    long age = (System.currentTimeMillis() - dateBirthdate.getTime())/1000/60/60/24/365;
 		return age;
 	}
 

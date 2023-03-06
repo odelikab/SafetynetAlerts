@@ -10,19 +10,25 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
-//@Entity
 @Data
-//@JsoniterAnnotationSupport.
+@AllArgsConstructor
 //@Table(name = "firestations")
 public class Firestation {
-//	@Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    private Long id;
 	
 	private String address;
 	private String station;
-	private List<Person> persons;
+	
+	public Firestation() {
+		
+	}
+	
+	@Override
+	public String toString() {
+		return "station : "+station;
+		
+	}
 
 }

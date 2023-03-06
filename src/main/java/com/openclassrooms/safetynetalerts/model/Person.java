@@ -3,6 +3,7 @@ package com.openclassrooms.safetynetalerts.model;
 
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import jakarta.persistence.GeneratedValue;
@@ -16,9 +17,6 @@ import lombok.Data;
 
 public class Person {
 	
-//	@Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    private Long id;
     private String firstName;
     private String lastName;
     private String address;
@@ -26,6 +24,7 @@ public class Person {
     private String zip;
     private String phone;
     private String email;
+    @JsonIgnore
     private String birthdate;
 
     @Override

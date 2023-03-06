@@ -1,6 +1,7 @@
 package com.openclassrooms.safetynetalerts.controller;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
 
@@ -33,7 +34,7 @@ public class FirestationController {
 	private FirestationService firestationService;
 	
 	@PostMapping("/firestation")
-	public Firestation addFirestation(@RequestBody Firestation firestation) {
+	public Firestation addFirestation(@RequestParam Firestation firestation) {
 		Firestation firestationAdded = firestationService.addFirestation(firestation);
 	 return firestationAdded;
 	}
@@ -46,11 +47,11 @@ public class FirestationController {
 //	}
 	
 	@GetMapping("firestation")
-	public Object findByStationNumber(@RequestParam(required=false, defaultValue = "0") int station) throws IOException {
-		if(station==0) {
+	public Object findAddressByStationNumber(@RequestParam(required=false, defaultValue = "0") int stationNumber) throws IOException, ParseException {
+		if(stationNumber==0) {
 			return firestationService.getAllFirestations();
 		}
-		return firestationService.findByStationNumber(station);
+		return firestationService.findAddressByStationNumber(stationNumber);
 	}
 	
 	@PutMapping("firestation/{station}")
@@ -70,8 +71,15 @@ public class FirestationController {
 	}
 	
 	@GetMapping("/fire")
-	public Object getPersonsByAddress(@RequestParam String address)  {
+	public Object getPersonsByAddress(@RequestParam String address) throws ParseException  {
 		return firestationService.getPersonsByAddress(address);
+	}
+	
+	@GetMapping("/flood/stations")
+	
+	public Object getFlood(@RequestParam List<Integer> stations) throws ParseException {
+		
+		return firestationService.getFlood(stations);
 	}
 }
 

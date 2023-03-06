@@ -1,8 +1,10 @@
 package com.openclassrooms.safetynetalerts.service;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,7 +28,7 @@ public class PersonServiceImpl  {
 	@Autowired
 	private PersonRepository personRepository;
 	@Autowired
-	private MedicalRecordService medicalRecordService;
+	private MedicalRecordRepository medicalRecordRepo;
 	
 	public List<Person> getAllPersons()    {
 	return personRepository.getAllPersons();
@@ -63,34 +65,65 @@ public class PersonServiceImpl  {
 
 	public ArrayList<PersonDTO> getPersonInfo(String firstName, String lastName) throws ParseException {
 		ArrayList<PersonDTO> listPersonsDTO = new ArrayList<>();
-		for(Person person : getAllPersons()) {
-			if(person.getLastName().equals(lastName)) {
-				MedicalRecord medicalRecord = medicalRecordService.findByName(firstName, lastName);
+		for (Person person : getAllPersons()) {
+			if (person.getLastName().equals(lastName)) {
+//				MedicalRecord medicalRecord = medicalRecordService.findByName(firstName, lastName);
 				PersonDTO personDTO = new PersonDTO();
 				personDTO.setFirstName(person.getFirstName());
 				personDTO.setLastName(person.getLastName());
 				personDTO.setEmail(person.getEmail());
 				personDTO.setAddress(person.getAddress());
-				personDTO.setAge(medicalRecordService.getAge(firstName,lastName));
-				personDTO.setMedicalRecord(medicalRecordService.findByName(firstName,lastName));
-
-				listPersonsDTO.add(personDTO);			}
+				personDTO.setAge(getPersonAge(person.getFirstName(), person.getLastName()));
+				personDTO.setMedicalRecord(medicalRecordRepo.findByName(firstName, lastName));
+				listPersonsDTO.add(personDTO);
+			}
 		}
 		return listPersonsDTO;
-		
+
 	}
 
-//	public Iterable<Person> getChildByAddress(String address) {
-//		// TODO Auto-generated method stub
-//		List<Person> listChildrenByAddress = new ArrayList<Person>();
+	public Iterable<PersonDTO> getChildByAddress(String address) throws ParseException {
+		// TODO Auto-generated method stub
+		ArrayList<PersonDTO> listChildrenByAddress = new ArrayList<>();
 //		List<Person> listPersons = personRepository.getAllPersons();
-//		for (Person person : listPersons) {
-//			if (person.getAddress().equals(address) && person.getAge()<=18) {
-//				person.setFamilyMembers( personRepository.getFamilyMembers(person.getFirstName(), person.getLastName()));
-//				listChildrenByAddress.add(person);
-//				person.setMedicalRecord(medicalRecordRepo.findByName(person.getFirstName(), person.getLastName()));
-//			}
-//		}
-//		return listChildrenByAddress;
-//	}
+//		 List<MedicalRecord> listMedicalRecords = medicalRecordService.getAllMedicalRecords();
+		for (MedicalRecord medicalRecord : medicalRecordRepo.getAllMedicalRecords()) {
+			String firstName = medicalRecord.getFirstName();
+			String lastName = medicalRecord.getLastName();
+			if(getPersonAge(firstName, lastName )<=18)  {
+				Person personByName = personRepository.findByName(firstName, lastName);
+				if( personByName.getAddress().equals(address)) {
+					PersonDTO personDTO = new PersonDTO();
+					personDTO.setFirstName(personByName.getFirstName());
+					personDTO.setLastName(personByName.getLastName());
+					personDTO.setAge(getPersonAge(personByName.getFirstName(),personByName.getLastName()));
+					personDTO.setFamilyMembers( personRepository.getFamilyMembers(personByName.getFirstName(), personByName.getLastName()));
+					listChildrenByAddress.add(personDTO);
+				}
+			}
+		}
+		return listChildrenByAddress;
+	}
+	
+	public ArrayList<Person> getPersonsByAddress(String address)  {
+		ArrayList<Person> listPersons = new ArrayList<Person>();
+//		List<Person> listPersons = personRepository.getAllPersons();
+		for (Person person : personRepository.getAllPersons()) {
+			if (person.getAddress().equals(address)) {
+				listPersons.add(person);
+			}
+		}
+		return listPersons;
+	}
+
+	
+	public Long getPersonAge(String firstName, String lastName) throws ParseException {
+		// TODO Auto-generated method stub
+		MedicalRecord medicalRecord = medicalRecordRepo.findByName(firstName, lastName);
+		String birthdate = medicalRecord.getBirthdate();
+	    Date dateBirthdate=new SimpleDateFormat("dd/MM/yyyy").parse(birthdate);  
+	    long age = (System.currentTimeMillis() - dateBirthdate.getTime())/1000/60/60/24/365;
+		return age;
+	}
+
 }

@@ -53,9 +53,9 @@ public class MedicalRecordController {
 		return medicalRecordDeleted;
  	}
 	
-	@GetMapping("/personInfo")
-	public Object personInfo(@RequestParam String firstName, @RequestParam String lastName)  {
-		return medicalRecordService.getPersonInfo(firstName, lastName);
-	}
+//	@GetMapping("/personInfo")
+//	public Object personInfo(@RequestParam String firstName, @RequestParam String lastName)  {
+//		return medicalRecordService.getPersonInfo(firstName, lastName);
+//	}
 
 }

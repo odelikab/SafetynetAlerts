@@ -1,7 +1,9 @@
 package com.openclassrooms.safetynetalerts.service;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.openclassrooms.safetynetalerts.model.Firestation;
 import com.openclassrooms.safetynetalerts.model.MedicalRecord;
 import com.openclassrooms.safetynetalerts.model.Person;
+import com.openclassrooms.safetynetalerts.model.DTO.PersonDTO;
 import com.openclassrooms.safetynetalerts.repositery.FirestationRepository;
 
 import lombok.AllArgsConstructor;
@@ -24,15 +27,44 @@ public class FirestationService {
 	@Autowired
 	private FirestationRepository firestationRepository;
 	@Autowired
-	public PersonServiceImpl personServiceImpl;
+	private PersonServiceImpl personServiceImpl;
 	public MedicalRecordService medicalRecordService;
 	
 	public Map<Integer, List<String>> getAllFirestations() throws IOException    {
 	return firestationRepository.getAllFirestations();
 	}
 	
-	public List<String> findByStationNumber(int stationNumber) {
-		return firestationRepository.findAddressByStationNumber(stationNumber);
+	public HashMap<Object, Object> findAddressByStationNumber(int stationNumber) throws ParseException {
+		List<String> addresses = firestationRepository.findAddressByStationNumber(stationNumber);
+		List<Object> persons = new ArrayList<>();
+		List<Object> obj = new ArrayList<>();
+		HashMap<Object, Object> mapPersonsDTO = new HashMap<>();
+		int adults = 0;
+		int child = 0;
+		HashMap<Object, Object> mapCount = new HashMap<>();
+		for(String address : addresses) {
+			ArrayList<Person> personsByAddress = personServiceImpl.getPersonsByAddress(address);
+			for(Person person : personsByAddress) {
+				PersonDTO personDTO = new PersonDTO();
+				personDTO.setFirstName(person.getFirstName());
+				personDTO.setLastName(person.getLastName());
+				personDTO.setPhone(person.getPhone());
+				personDTO.setAddress(person.getAddress());
+				personDTO.setAge(personServiceImpl.getPersonAge(person.getFirstName(), person.getLastName()));
+				persons.add(personDTO);
+				if(personDTO.getAge()>=18) adults++; 
+				if(personDTO.getAge()<18) child++;
+			} 
+		}
+		mapCount.put("adults", adults);
+		mapCount.put("child", child); obj.add(stationNumber);
+		obj.add(mapCount); 
+		mapPersonsDTO.put(obj, persons);
+		return mapPersonsDTO;
+	}
+	
+	public List<Firestation> findFirestationByAddress(String address)  {
+	return firestationRepository.findFirestationByAddress(address);
 	}
 	
 	public Firestation addFirestation(Firestation firestation)  {
@@ -49,11 +81,10 @@ public class FirestationService {
     }
 
 	public List<String> getPhoneNumberByStation(int station) {
-		ArrayList<String> listStationAddress = firestationRepository.findAddressByStationNumber(station);
+		List<String> listStationAddress = firestationRepository.findAddressByStationNumber(station);
 		List<Person> listPersons = personServiceImpl.getAllPersons();
 		List<String> listPhoneNumbers = new ArrayList<>();
 		int i = 0;
-		
 			for (String address : listStationAddress) {
 				while (i < listPersons.size()) {
 				if (listPersons.get(i).getAddress().equals(address)) {
@@ -65,19 +96,53 @@ public class FirestationService {
 		return listPhoneNumbers;
 	}
 
-	public List<Person> getPersonsByAddress(String address) {
-		List<Firestation> listFire = firestationRepository.findFirestationByAddress(address);
+	public HashMap<Object, Object> getPersonsByAddress(String address) throws ParseException {
+//		List<Firestation> listFire = firestationRepository.findFirestationByAddress(address);
 		List<Person> listPersons = personServiceImpl.getAllPersons();
-		List<Person> listPersonsByAddress = new ArrayList<>();
-		int i =0;
-		for(Person person : listPersons) {
-		if(person.getAddress().equals(address)) {
-			listPersonsByAddress.add(person);
-//			MedicalRecord medicalRecord = medicalRecordService.findByName(person.getFirstName(), person.getLastName());
-//		listFire.get(i).setMedicalRecord(medicalRecord);
-		} i++;
+		List<PersonDTO> listPersonsByAddress = new ArrayList<>();
+		HashMap<Object, Object> mapPersons = new HashMap<>();
+		for (Person person : listPersons) {
+			if (person.getAddress().equals(address)) {
+				PersonDTO personDTO = new PersonDTO();
+				personDTO.setFirstName(person.getFirstName());
+				personDTO.setLastName(person.getLastName());
+				personDTO.setPhone(person.getPhone());
+				personDTO.setAge(personServiceImpl.getPersonAge(person.getFirstName(), person.getLastName()));
+				personDTO
+						.setMedicalRecord(medicalRecordService.findByName(person.getFirstName(), person.getLastName()));
+				listPersonsByAddress.add(personDTO);
+			}
 		}
-		return listPersonsByAddress;
+		mapPersons.put(findFirestationByAddress(address).toString(), listPersonsByAddress);
+		return mapPersons;
+	}
+	
+	public HashMap<Object, Object> getFlood(List<Integer> stations) throws ParseException {
+//		Map<Integer,Map<String,PersonDTO>> mapPersons = new HashMap<>();
+		HashMap<Object, Object> mapFlood = new HashMap<>();
+		for (Integer station : stations) {
+			HashMap<Object, Object> mapByAddress = new HashMap<>();
+			List<Person> listPersons = new ArrayList<>();
+			List<String> listAddress = firestationRepository.findAddressByStationNumber(station);
+			for (String address : listAddress) {
+				ArrayList<Object> listPersonsDTO = new ArrayList<>();
+				listPersons = personServiceImpl.getPersonsByAddress(address);
+				for(Person person : listPersons) {
+					PersonDTO personDTO = new PersonDTO();
+					personDTO.setFirstName(person.getFirstName());
+					personDTO.setLastName(person.getLastName());
+					personDTO.setPhone(person.getPhone());
+					personDTO.setAge(personServiceImpl.getPersonAge(person.getFirstName(), person.getLastName()));
+					personDTO
+					.setMedicalRecord(medicalRecordService.findByName(person.getFirstName(), person.getLastName()));				
+					listPersonsDTO.add(personDTO);
+				}
+				mapByAddress.put(address, listPersonsDTO);
+			}
+			mapFlood.put(station, mapByAddress);
+		}
+		return mapFlood;
+
 	}
 
 //	public List<String> findByStationNumber(String stationNumber) throws IOException {
