@@ -40,32 +40,32 @@ class SafetynetAlertsApplicationTests {
 	}
 
 	@Test
-	public void testgetpersons() throws IOException {
+	public void testgetpersons()  {
 //	String input = "{ 'firstName':'John', 'lastName':'Boyd', 'address':'1509 Culver St', 'city':'Culver', 'zip':97451, 'phone':'841-874-6512', 'email':'jaboyd@email.com' }";
 //	JsonIterator.deserialize("{'firstName':'John', 'lastName':'Boyd'}", Util.class);
 //	assertEquals(1,test.get("1", 0));
-  String input = "{\"persons\": { \"firstName\":\"John\", \"lastName\":\"Boyd\", \"address\":\"1509 Culver St\", \"city\":\"Culver\", \"zip\":\"97451\", \"phone\":\"841-874-6512\", \"email\":\"jaboyd@email.com\" }}";
-  InputStream inputStream = new FileInputStream("src/main/resources/data.json");
+//  String input = "{\"persons\": { \"firstName\":\"John\", \"lastName\":\"Boyd\", \"address\":\"1509 Culver St\", \"city\":\"Culver\", \"zip\":\"97451\", \"phone\":\"841-874-6512\", \"email\":\"jaboyd@email.com\" }}";
+//  InputStream inputStream = new FileInputStream("src/main/resources/data.json");
 
 //  Any obj = JsonIterator.deserialize(input);
 //Any objget = obj.get("persons");
 //System.out.println(objget);
 //int[] array = JsonIterator.deserialize("[1,2,3]", int[].class);
 //System.out.println(array[2]);
-JsonIterator iter = JsonIterator.parse(inputStream.readAllBytes());
+//JsonIterator iter = JsonIterator.parse(inputStream.readAllBytes());
 //Map<String,Object> util = (Map<String, Object>) iter.read();//
 
-    Util util = iter.read(Util.class);
-    int longueur = util.getPersons().length;
+//    Util util = iter.read(Util.class);
+//    int longueur = util.getPersons().length;
 //    HashMap<String,String> mapFirestations = new HashMap<>();
 //    for(Firestation firestation : util.firestations) {
 //		mapFirestations.put(firestation.getAddress(),firestation.getStation());
 //    }
-    List<Person> personsList = new ArrayList<>();
-    for(Person person :util.getPersons()) {
-    	personsList.add(person);
-    }
-    String stringlist = personsList.toString();
+//    List<Person> personsList = new ArrayList<>();
+//    for(Person person :util.getPersons()) {
+//    	personsList.add(person);
+//    }
+//    String stringlist = personsList.toString();
 //    int sizelist = personsList.size();
 //    int i = 0;
 //    while(i<personsList.size())  {

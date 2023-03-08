@@ -37,18 +37,18 @@ public class MedicalRecordController {
 	}
 	
 	@PostMapping
-	public MedicalRecord addMedicalRecord(@RequestBody MedicalRecord medicalRecord) {
+	public MedicalRecord addMedicalRecord( MedicalRecord medicalRecord) {
 		MedicalRecord medicalRecordAdded = medicalRecordService.addMedicalRecord(medicalRecord);
 	 return medicalRecordAdded;
 	}
 	
 	@PutMapping//("/{firstName}/{lastName}")
-	public MedicalRecord updateMedicalRecord(@RequestBody MedicalRecord medicalRecord) {
+	public MedicalRecord updateMedicalRecord( MedicalRecord medicalRecord) {
 		return medicalRecordService.updateMedicalRecord(medicalRecord);
 	}
 	
-	@DeleteMapping("/{firstName}/{lastName}")
-	public MedicalRecord deleteMedicalRecord(@PathVariable String firstName, @PathVariable String lastName)  {
+	@DeleteMapping
+	public MedicalRecord deleteMedicalRecord(@RequestParam String firstName, @RequestParam String lastName)  {
 		MedicalRecord medicalRecordDeleted = medicalRecordService.deleteMedicalRecord(firstName,lastName);
 		return medicalRecordDeleted;
  	}

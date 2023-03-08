@@ -51,23 +51,32 @@ public FirestationRepository() throws IOException  {
 	public Firestation addFirestation(Firestation firestation) {
 		// TODO Auto-generated method stub
 		Integer station = Integer.valueOf(firestation.getStation());
-		mapFirestation.put(station,new ArrayList<>());
-		mapFirestation.get(Integer.valueOf(firestation.getStation())).add(firestation.getAddress());
+		if (mapFirestation.get(station) != null) {
+			mapFirestation.get(station).add(firestation.getAddress());
+		} else {
+			mapFirestation.put(station, new ArrayList<>());
+			mapFirestation.get(station).add(firestation.getAddress());
+		}
 		return firestation;
 	}
 	
 	public Firestation updateFirestation(Firestation firestationUpdate) {
-		 List<Firestation> firestation = findFirestationByAddress(firestationUpdate.getAddress());
-		 firestation.get(0);
-		listFirestations.set(listFirestations.indexOf(firestation.get(0)), firestationUpdate);
+//		List<Firestation> firestation = findFirestationByAddress(firestationUpdate.getAddress());
+//		listFirestations.set(listFirestations.indexOf(firestation.get(0)), firestationUpdate);
+		for (Integer key : mapFirestation.keySet()) {
+			List<String> keyMap = mapFirestation.get(key);
+			if (keyMap.contains((firestationUpdate.getAddress()))) {
+				keyMap.remove((firestationUpdate.getAddress()));
+			}
+			break;
+		}
+		addFirestation(firestationUpdate);
 		return firestationUpdate;
 	}
 	
 	public Firestation deleteFirestation(Firestation firestation)  {
 		listFirestations.remove(firestation);
+		mapFirestation.get(Integer.valueOf(firestation.getStation())).remove(firestation.getAddress());
 		return firestation;
-		
 	}
-	
-	
 }

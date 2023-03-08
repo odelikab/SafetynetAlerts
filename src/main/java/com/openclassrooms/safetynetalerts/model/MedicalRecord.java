@@ -13,7 +13,6 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-//@Entity
 public class MedicalRecord {
 	
 //	@JsonIgnore
@@ -22,7 +21,7 @@ public class MedicalRecord {
     private String lastName;
 //	@JsonIgnore
     private String birthdate;
-    private String[] medication;
+    private String[] medications;
     private String[] allergies;
     
     public MedicalRecord() {

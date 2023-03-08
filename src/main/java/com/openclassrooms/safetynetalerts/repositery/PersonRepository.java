@@ -31,7 +31,6 @@ public class PersonRepository {
 			for (Person person : arrayPersons) {
 				listPersons.add(person);
 			}
-//			getPersonsAge();
 		}
 	
 	public List<Person> getAllPersons()   {
@@ -72,19 +71,6 @@ public class PersonRepository {
  	}
 	
 	public Person deletePerson(String firstName, String lastName) {
-//		int i = 0;
-//		Iterator<Person> itr = listPersons.iterator();
-//		while (itr.hasNext()) {
-//			String firstNameCurrent = listPersons.get(i).getFirstName();
-//			String lastNameCurrent = listPersons.get(i).getLastName();
-//			if (firstNameCurrent.equals(firstName) && lastNameCurrent.equals(lastName)) {
-//				int indexToRemove = listPersons.indexOf(itr.next());
-////				listPersons.remove(indexToRemove);
-//				itr.remove();
-//				break;
-//			}
-//			i++;
-//		}
 		Person person = findByName(firstName, lastName);
 		listPersons.remove(person);
 		return person;

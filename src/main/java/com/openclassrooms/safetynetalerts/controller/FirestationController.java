@@ -34,7 +34,7 @@ public class FirestationController {
 	private FirestationService firestationService;
 	
 	@PostMapping("/firestation")
-	public Firestation addFirestation(@RequestParam Firestation firestation) {
+	public Firestation addFirestation( Firestation firestation) {
 		Firestation firestationAdded = firestationService.addFirestation(firestation);
 	 return firestationAdded;
 	}
@@ -59,8 +59,8 @@ public class FirestationController {
 		 return firestationService.updateFirestation(firestation);
 	}
 	
-	@DeleteMapping//("/{station}")
-	public ResponseEntity<Firestation> deleteFirestation( @RequestBody Firestation firestation) {
+	@DeleteMapping("/firestation")
+	public ResponseEntity<Firestation> deleteFirestation( Firestation firestation) {
 		firestationService.deleteFirestation(firestation);
 		return new ResponseEntity<>(firestation,HttpStatus.GONE);
  	}
@@ -78,7 +78,6 @@ public class FirestationController {
 	@GetMapping("/flood/stations")
 	
 	public Object getFlood(@RequestParam List<Integer> stations) throws ParseException {
-		
 		return firestationService.getFlood(stations);
 	}
 }

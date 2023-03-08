@@ -50,8 +50,8 @@ public class PersonController {
 		return personService.updatePerson(person);
 	}
 //	
-	@DeleteMapping("/person/{firstName}/{lastName}")
-	public Person deletePerson(@PathVariable String firstName, @PathVariable String lastName) throws Exception {
+	@DeleteMapping("/person")
+	public Person deletePerson(@RequestParam String firstName, @RequestParam String lastName) throws Exception {
 		Person personDeleted = personService.deletePerson(firstName,lastName);
 		return personDeleted;
  	}
