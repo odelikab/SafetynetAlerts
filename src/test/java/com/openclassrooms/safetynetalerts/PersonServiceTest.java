@@ -37,8 +37,8 @@ public class PersonServiceTest {
 		
 		Person person = personServiceImpl.findByName("Bob","Mathieu");
 
-		assertEquals("Bob",person.getFirstName());
-//		verify(personRepo,times(1)).findByName("Bob","Mathieu");
+//		assertEquals("Bob",person.getFirstName());
+		verify(personRepo,times(1)).findByName("Bob","Mathieu");
 	}
 	
 }

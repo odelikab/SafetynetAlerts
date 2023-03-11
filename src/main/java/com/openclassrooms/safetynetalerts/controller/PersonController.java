@@ -45,7 +45,7 @@ public class PersonController {
 	 return personAdded;
 	}
 //	
-	@PutMapping("/person")//("/{firstName}/{lastName}")
+	@PutMapping("/person")
 	public Person updatePerson(@RequestBody Person person) {
 		return personService.updatePerson(person);
 	}

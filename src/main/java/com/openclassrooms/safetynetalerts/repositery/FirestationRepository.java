@@ -40,7 +40,7 @@ public FirestationRepository() throws IOException  {
 		int i = 0;
 		ArrayList<Firestation> listStationbyAddress = new ArrayList<Firestation>();
 		while (i < listFirestations.size()) {
-			if (listFirestations.get(i).getAddress().equals(stationAddress)) {
+			if (listFirestations.get(i).getAddress().equals(stationAddress) && !listStationbyAddress.contains(listFirestations.get(i))) {
 				listStationbyAddress.add(listFirestations.get(i));
 			}
 			i++;

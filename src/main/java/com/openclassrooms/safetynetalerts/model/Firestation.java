@@ -27,7 +27,7 @@ public class Firestation {
 	
 	@Override
 	public String toString() {
-		return "station : "+station;
+		return station;
 		
 	}
 

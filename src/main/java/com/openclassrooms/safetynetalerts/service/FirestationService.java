@@ -113,7 +113,7 @@ public class FirestationService {
 				listPersonsByAddress.add(personDTO);
 			}
 		}
-		mapPersons.put(findFirestationByAddress(address).toString(), listPersonsByAddress);
+		mapPersons.put(findFirestationByAddress(address), listPersonsByAddress);
 		return mapPersons;
 	}
 	
@@ -142,28 +142,5 @@ public class FirestationService {
 			mapFlood.put(station, mapByAddress);
 		}
 		return mapFlood;
-
 	}
-
-//	public List<String> findByStationNumber(String stationNumber) throws IOException {
-//		// TODO Auto-generated method stub
-//		getAllFirestations();
-//		List<String> listAddressByStation = new ArrayList<>();
-//		int i = 0;
-//		while (i < getAllFirestations().size()) {
-//			if (getAllFirestations().get(i).getStation().equals(stationNumber)) {
-//				listAddressByStation.add(getAllFirestations().get(i).getAddress());
-//			}
-//			i++;
-//		}
-//		int k = 0, j = 0;
-//		while(i<personServiceImpl.getAllPersons().size()) {
-//		if(personServiceImpl.getAllPersons().get(k).getAddress().equals(listAddressByStation.get(j)))  {
-//			;
-//		}
-//		//		person.getAddress
-//		}
-//		
-//		return listAddressByStation;
-//	}
 }
