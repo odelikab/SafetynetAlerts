@@ -1,6 +1,5 @@
 package com.openclassrooms.safetynetalerts.controller;
 
-import lombok.AllArgsConstructor;
 
 import com.fasterxml.jackson.databind.ser.FilterProvider;
 import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
@@ -24,14 +23,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.web.bind.annotation.*;
 
-//@AllArgsConstructor
 @RestController
-//@RequestMapping("/person")
 public class PersonController {
 	
 	@Autowired
 	private PersonServiceImpl personService;
-//	private PersonRepository personRepository;
 
 	@GetMapping("/person")
 	public Object getPersons()  {

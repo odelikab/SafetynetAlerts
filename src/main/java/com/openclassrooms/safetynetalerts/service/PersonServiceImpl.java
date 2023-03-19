@@ -3,10 +3,8 @@ package com.openclassrooms.safetynetalerts.service;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,7 +18,7 @@ import com.openclassrooms.safetynetalerts.repositery.PersonRepository;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-@Data
+//@Data
 @AllArgsConstructor
 @Service
 public class PersonServiceImpl  {
@@ -73,7 +71,8 @@ public class PersonServiceImpl  {
 				personDTO.setLastName(person.getLastName());
 				personDTO.setEmail(person.getEmail());
 				personDTO.setAddress(person.getAddress());
-				personDTO.setAge(getPersonAge(person.getFirstName(), person.getLastName()));
+				String birthdate = medicalRecordRepo.findByName(person.getFirstName(), person.getLastName()).getBirthdate();
+				personDTO.setAge(getPersonAge(person.getFirstName(), person.getLastName(), birthdate ));
 				personDTO.setMedicalRecord(medicalRecordRepo.findByName(firstName, lastName));
 				listPersonsDTO.add(personDTO);
 			}
@@ -85,19 +84,23 @@ public class PersonServiceImpl  {
 	public Iterable<PersonDTO> getChildByAddress(String address) throws ParseException {
 		// TODO Auto-generated method stub
 		ArrayList<PersonDTO> listChildrenByAddress = new ArrayList<>();
-//		List<Person> listPersons = personRepository.getAllPersons();
+		List<Person> listPersons = personRepository.getAllPersons();
 //		 List<MedicalRecord> listMedicalRecords = medicalRecordService.getAllMedicalRecords();
-		for (MedicalRecord medicalRecord : medicalRecordRepo.getAllMedicalRecords()) {
-			String firstName = medicalRecord.getFirstName();
-			String lastName = medicalRecord.getLastName();
-			if(getPersonAge(firstName, lastName )<=18)  {
-				Person personByName = personRepository.findByName(firstName, lastName);
-				if( personByName.getAddress().equals(address)) {
+//		for (MedicalRecord medicalRecord : medicalRecordRepo.getAllMedicalRecords()) 
+		for(Person person : listPersons){
+			String firstName = person.getFirstName();
+			String lastName = person.getLastName();
+			String birthdate = medicalRecordRepo.findByName(firstName, lastName).getBirthdate() ;
+			Long age = getPersonAge(firstName, lastName, birthdate );
+			if(age<=18)  {
+//				Person personByName = new Person();
+//				 personByName = personRepository.findByName(firstName, lastName);
+				if( person.getAddress().equals(address)) {
 					PersonDTO personDTO = new PersonDTO();
-					personDTO.setFirstName(personByName.getFirstName());
-					personDTO.setLastName(personByName.getLastName());
-					personDTO.setAge(getPersonAge(personByName.getFirstName(),personByName.getLastName()));
-					personDTO.setFamilyMembers( personRepository.getFamilyMembers(personByName.getFirstName(), personByName.getLastName()));
+					personDTO.setFirstName(person.getFirstName());
+					personDTO.setLastName(person.getLastName());
+					personDTO.setAge(age);
+					personDTO.setFamilyMembers( personRepository.getFamilyMembers(person.getFirstName(), person.getLastName()));
 					listChildrenByAddress.add(personDTO);
 				}
 			}
@@ -115,12 +118,12 @@ public class PersonServiceImpl  {
 		}
 		return listPersons;
 	}
-
 	
-	public Long getPersonAge(String firstName, String lastName) throws ParseException {
+	public Long getPersonAge(String firstName, String lastName, String birthdate) throws ParseException {
 		// TODO Auto-generated method stub
-		MedicalRecord medicalRecord = medicalRecordRepo.findByName(firstName, lastName);
-		String birthdate = medicalRecord.getBirthdate();
+//		MedicalRecord medicalRecord = new MedicalRecord();
+//		 medicalRecord = medicalRecordRepo.findByName(firstName, lastName);
+//		String birthdate = medicalRecord.getBirthdate();
 	    Date dateBirthdate=new SimpleDateFormat("dd/MM/yyyy").parse(birthdate);  
 	    long age = (System.currentTimeMillis() - dateBirthdate.getTime())/1000/60/60/24/365;
 		return age;

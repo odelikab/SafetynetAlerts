@@ -14,7 +14,7 @@ import com.openclassrooms.safetynetalerts.repositery.MedicalRecordRepository;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-@Data
+//@Data
 @AllArgsConstructor
 @Service
 public class MedicalRecordService {
@@ -46,13 +46,13 @@ public class MedicalRecordService {
     	return medicalRecordRepository.updateMedicalRecord(medicalRecord);
     }
 
-	public Long getAge(String firstName, String lastName) throws ParseException {
-		// TODO Auto-generated method stub
-		MedicalRecord medicalRecord = medicalRecordRepository.findByName(firstName, lastName);
-		String birthdate = medicalRecord.getBirthdate();
-	    Date dateBirthdate=new SimpleDateFormat("dd/MM/yyyy").parse(birthdate);  
-	    long age = (System.currentTimeMillis() - dateBirthdate.getTime())/1000/60/60/24/365;
-		return age;
-	}
+//	public Long getAge(String firstName, String lastName) throws ParseException {
+//		// TODO Auto-generated method stub
+//		MedicalRecord medicalRecord = medicalRecordRepository.findByName(firstName, lastName);
+//		String birthdate = medicalRecord.getBirthdate();
+//	    Date dateBirthdate=new SimpleDateFormat("dd/MM/yyyy").parse(birthdate);  
+//	    long age = (System.currentTimeMillis() - dateBirthdate.getTime())/1000/60/60/24/365;
+//		return age;
+//	}
 
 }

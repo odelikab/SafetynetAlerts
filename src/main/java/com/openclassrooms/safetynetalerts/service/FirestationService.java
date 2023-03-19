@@ -19,7 +19,7 @@ import com.openclassrooms.safetynetalerts.repositery.FirestationRepository;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-@Data
+//@Data
 @AllArgsConstructor
 @Service
 public class FirestationService {
@@ -28,7 +28,8 @@ public class FirestationService {
 	private FirestationRepository firestationRepository;
 	@Autowired
 	private PersonServiceImpl personServiceImpl;
-	public MedicalRecordService medicalRecordService;
+	@Autowired
+	private MedicalRecordService medicalRecordService;
 	
 	public Map<Integer, List<String>> getAllFirestations() throws IOException    {
 	return firestationRepository.getAllFirestations();
@@ -50,10 +51,12 @@ public class FirestationService {
 				personDTO.setLastName(person.getLastName());
 				personDTO.setPhone(person.getPhone());
 				personDTO.setAddress(person.getAddress());
-				personDTO.setAge(personServiceImpl.getPersonAge(person.getFirstName(), person.getLastName()));
+				MedicalRecord medicalRecord = medicalRecordService.findByName(person.getFirstName(), person.getLastName());
+				String birthday = medicalRecord.getBirthdate();
+				personDTO.setAge(personServiceImpl.getPersonAge(person.getFirstName(), person.getLastName(),birthday));
 				persons.add(personDTO);
-				if(personDTO.getAge()>=18) adults++; 
-				if(personDTO.getAge()<18) child++;
+				if(personDTO.getAge()>=18) { adults++; }
+				else { child++; }
 			} 
 		}
 		mapCount.put("adults", adults);
@@ -107,7 +110,8 @@ public class FirestationService {
 				personDTO.setFirstName(person.getFirstName());
 				personDTO.setLastName(person.getLastName());
 				personDTO.setPhone(person.getPhone());
-				personDTO.setAge(personServiceImpl.getPersonAge(person.getFirstName(), person.getLastName()));
+				String birthday = medicalRecordService.findByName(person.getFirstName(), person.getLastName()).getBirthdate();
+				personDTO.setAge(personServiceImpl.getPersonAge(person.getFirstName(), person.getLastName(),birthday));
 				personDTO
 						.setMedicalRecord(medicalRecordService.findByName(person.getFirstName(), person.getLastName()));
 				listPersonsByAddress.add(personDTO);
@@ -132,7 +136,10 @@ public class FirestationService {
 					personDTO.setFirstName(person.getFirstName());
 					personDTO.setLastName(person.getLastName());
 					personDTO.setPhone(person.getPhone());
-					personDTO.setAge(personServiceImpl.getPersonAge(person.getFirstName(), person.getLastName()));
+					MedicalRecord medicalRecord = new MedicalRecord();
+					medicalRecord = medicalRecordService.findByName(person.getFirstName(), person.getLastName());
+					String birthday = medicalRecord.getBirthdate();
+					personDTO.setAge(personServiceImpl.getPersonAge(person.getFirstName(), person.getLastName(),birthday));
 					personDTO
 					.setMedicalRecord(medicalRecordService.findByName(person.getFirstName(), person.getLastName()));				
 					listPersonsDTO.add(personDTO);

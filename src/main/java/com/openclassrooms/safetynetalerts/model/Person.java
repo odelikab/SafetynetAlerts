@@ -52,4 +52,12 @@ public class Person {
 		// TODO Auto-generated constructor stub
 	}
 
+	public Person(@NotNull String firstName, @NotBlank String lastName) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+	}
+
+	
+
 }

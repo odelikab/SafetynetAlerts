@@ -27,4 +27,12 @@ public class MedicalRecord {
     public MedicalRecord() {
 		// TODO Auto-generated constructor stub
 	}
+
+	public MedicalRecord(String firstName, String lastName, String birthdate) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.birthdate = birthdate;
+	}
+    
 }

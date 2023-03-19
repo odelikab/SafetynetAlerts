@@ -38,15 +38,8 @@ public class FirestationController {
 		Firestation firestationAdded = firestationService.addFirestation(firestation);
 	 return firestationAdded;
 	}
-	
-//	@GetMapping("/firestation")
-//	@ResponseBody
-//	public Map<String, List<String>> getAllFirestations() throws IOException  {
-//		Map<String, List<String>> listFirestations = firestationService.getAllFirestations();
-//		return listFirestations;
-//	}
-	
-	@GetMapping("firestation")
+		
+	@GetMapping("/firestation")
 	public Object findAddressByStationNumber(@RequestParam(required=false, defaultValue = "0") int stationNumber) throws IOException, ParseException {
 		if(stationNumber==0) {
 			return firestationService.getAllFirestations();
@@ -54,7 +47,7 @@ public class FirestationController {
 		return firestationService.findAddressByStationNumber(stationNumber);
 	}
 	
-	@PutMapping("firestation/{station}")
+	@PutMapping("/firestation/{station}")
 	public Firestation updateFirestation(@PathVariable("station") String station, @RequestBody Firestation firestation) {
 		 return firestationService.updateFirestation(firestation);
 	}
@@ -62,7 +55,7 @@ public class FirestationController {
 	@DeleteMapping("/firestation")
 	public ResponseEntity<Firestation> deleteFirestation( Firestation firestation) {
 		firestationService.deleteFirestation(firestation);
-		return new ResponseEntity<>(firestation,HttpStatus.GONE);
+		return new ResponseEntity<Firestation>(firestation,HttpStatus.GONE);
  	}
 	
 	@GetMapping("/phoneAlert")

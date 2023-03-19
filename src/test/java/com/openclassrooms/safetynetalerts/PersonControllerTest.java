@@ -61,7 +61,8 @@ public class PersonControllerTest {
     public void testModifyPersons() throws Exception {
     	mockMvc.perform( MockMvcRequestBuilders
   	      .put("/person")//.param("firstName", "Odeli").param("lastName", "Kabeya")
-  	      .content("{\"firstName\": \"Tony\"}")
+  	      .content("{\"firstName\": \"John\",\r\n"
+  	      		+ "        \"lastName\": \"Boyd\"}")
   	      .contentType(MediaType.APPLICATION_JSON)
   	      .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
