@@ -15,9 +15,9 @@ import lombok.Data;
 @AllArgsConstructor
 public class MedicalRecord {
 	
-//	@JsonIgnore
+//	@NotBlank
     private String firstName;
-//	@JsonIgnore
+//	@NotBlank
     private String lastName;
 //	@JsonIgnore
     private String birthdate;

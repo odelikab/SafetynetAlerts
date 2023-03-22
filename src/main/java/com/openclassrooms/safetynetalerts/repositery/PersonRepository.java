@@ -82,19 +82,5 @@ public class PersonRepository {
 		Person person = findByName(firstName, lastName);
 		listPersons.set(listPersons.indexOf(person),personToUpdate);
 		return personToUpdate;
-//		int indexToUpdate = 0;
-//		while (indexToUpdate < listPersons.size() - 1) {
-//			Person personToUpdate = listPersons.get(indexToUpdate);
-//			if (personToUpdate.getFirstName().equals(person.getFirstName())
-//					&& personToUpdate.getLastName().equals(person.getLastName())) {
-//				personToUpdate.setAddress(person.getAddress());
-//				personToUpdate.setCity(person.getCity());
-//				personToUpdate.setEmail(person.getEmail());
-//				personToUpdate.setPhone(person.getPhone());
-//				personToUpdate.setZip(person.getZip());
-//				break;
-//			}
-//			indexToUpdate++;
-//		}
 	}
 }

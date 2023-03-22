@@ -1,9 +1,6 @@
 package com.openclassrooms.safetynetalerts;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -42,9 +39,7 @@ public class PersonServiceTest {
 		personTest.setFirstName("Bob");
 		personTest.setLastName("Mathieu");
 		when(personRepo.findByName(anyString(),anyString())).thenReturn(personTest);
-		
 		Person person = personServiceImpl.findByName("Bob","Mathieu");
-
 //		assertEquals("Bob",person.getFirstName());
 		verify(personRepo,times(1)).findByName("Bob","Mathieu");
 	}
@@ -54,7 +49,6 @@ public class PersonServiceTest {
 		Person personTest = new Person();
 		personTest.setFirstName("Bob");
 		personTest.setLastName("Mathieu");
-//		when(personRepo.addPerson(any(Person.class))).thenReturn(personTest);
 		Person person = personServiceImpl.addPerson(personTest);
 		verify(personRepo,times(1)).addPerson(personTest);
 	}
@@ -113,7 +107,6 @@ public class PersonServiceTest {
 		listPersons.add(new Person("Leo","Forest"));
 		MedicalRecord medicalRecord = new MedicalRecord("Thomas","Boyd","12/12/1992");
 		when(medicalRecordRepo.findByName(anyString(),anyString())).thenReturn(medicalRecord);
-//		when(medicalRecordRepo.findByName(anyString(),anyString()).getBirthdate()).thenReturn("12/12/1992");
 		when(personRepo.getAllPersons()).thenReturn(listPersons);
 		personServiceImpl.getPersonInfo(firstName, lastName);
 		verify(personRepo,times(1)).getAllPersons();
@@ -150,16 +143,10 @@ public class PersonServiceTest {
 	public void testGetPersonAge() throws ParseException {
 		String firstName = "Thomas";
 		String lastName = "Boyd";
-//		MedicalRecordRepository medicalRecordRepo = null;
-		MedicalRecord medicalRecord = new MedicalRecord();
-		 String birthdate = "12/12/1992";
-//		when(medicalRecordRepo.findByName(anyString(), anyString())).thenReturn(medicalRecord);
+		String birthdate = "12/12/1992";
 		Long age = personServiceImpl.getPersonAge(firstName, lastName, birthdate );
-//		verify(medicalRecordRepo,times(1)).findByName(firstName, lastName);
 		assertEquals(30, age);
 	}
 
-
-	
 }
 

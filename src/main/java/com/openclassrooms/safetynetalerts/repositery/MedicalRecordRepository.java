@@ -14,7 +14,6 @@ import com.openclassrooms.safetynetalerts.util.Util;
 
 @Repository
 public class MedicalRecordRepository {
-
 	
 	public List<MedicalRecord> listMedicalRecords = new ArrayList<MedicalRecord>();
 	
@@ -35,7 +34,7 @@ public class MedicalRecordRepository {
 		MedicalRecord medicalRecord = new MedicalRecord();
 		while(i<listMedicalRecords.size()) {
 			medicalRecord = listMedicalRecords.get(i);
-			if(medicalRecord.getFirstName().equals(firstName)
+			if(medicalRecord.getFirstName()!=null && medicalRecord.getFirstName().equals(firstName)
 					&& medicalRecord.getLastName().equals(lastName)) {
 				return medicalRecord;
 			}
@@ -56,11 +55,15 @@ public class MedicalRecordRepository {
 	}
 
 	public MedicalRecord updateMedicalRecord(MedicalRecord medicalRecord) {
-		
 		String firstName= medicalRecord.getFirstName();
 		String lastName = medicalRecord.getLastName();
 		MedicalRecord medicalRecordOrigin = findByName(firstName,lastName);
-		listMedicalRecords.set(listMedicalRecords.indexOf(medicalRecordOrigin), medicalRecord);
-		return medicalRecord;
+		if(medicalRecordOrigin!=null) {
+		if(medicalRecord.getBirthdate()==null) medicalRecord.setBirthdate(medicalRecordOrigin.getBirthdate()); else medicalRecord.setBirthdate(medicalRecord.getBirthdate()); 
+		if(medicalRecord.getMedications()==null) medicalRecord.setMedications(medicalRecordOrigin.getMedications()); else medicalRecord.setMedications(medicalRecord.getMedications());
+		if(medicalRecord.getAllergies()==null) medicalRecord.setAllergies (medicalRecordOrigin.getAllergies());
+		  listMedicalRecords.set(listMedicalRecords.indexOf(medicalRecordOrigin), medicalRecord);
+		}
+		  return medicalRecord;
 	}
 }

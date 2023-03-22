@@ -56,7 +56,7 @@ public class PersonServiceImpl  {
 		for (Person person : listPersons) {
 			if (person.getCity().equals(city)) {
 				listEmailsByCity.add(person.getEmail());
-			}
+			} 
 		}
 		return listEmailsByCity;
 	}
@@ -86,16 +86,20 @@ public class PersonServiceImpl  {
 		ArrayList<PersonDTO> listChildrenByAddress = new ArrayList<>();
 		List<Person> listPersons = personRepository.getAllPersons();
 //		 List<MedicalRecord> listMedicalRecords = medicalRecordService.getAllMedicalRecords();
-//		for (MedicalRecord medicalRecord : medicalRecordRepo.getAllMedicalRecords()) 
+		MedicalRecord medicalRecord = new MedicalRecord();
 		for(Person person : listPersons){
 			String firstName = person.getFirstName();
 			String lastName = person.getLastName();
-			String birthdate = medicalRecordRepo.findByName(firstName, lastName).getBirthdate() ;
+			String birthdate;
+			medicalRecord = new MedicalRecord();
+			medicalRecord = medicalRecordRepo.findByName(firstName, lastName);
+			if(medicalRecord!=null) {  birthdate = medicalRecord.getBirthdate();
+			} else birthdate="01/01/2022";
 			Long age = getPersonAge(firstName, lastName, birthdate );
 			if(age<=18)  {
 //				Person personByName = new Person();
 //				 personByName = personRepository.findByName(firstName, lastName);
-				if( person.getAddress().equals(address)) {
+				if(person.getAddress()!=null && person.getAddress().equals(address)) {
 					PersonDTO personDTO = new PersonDTO();
 					personDTO.setFirstName(person.getFirstName());
 					personDTO.setLastName(person.getLastName());
@@ -103,7 +107,7 @@ public class PersonServiceImpl  {
 					personDTO.setFamilyMembers( personRepository.getFamilyMembers(person.getFirstName(), person.getLastName()));
 					listChildrenByAddress.add(personDTO);
 				}
-			}
+			} 
 		}
 		return listChildrenByAddress;
 	}

@@ -15,7 +15,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 //@Data
-@AllArgsConstructor
+//@AllArgsConstructor
 @Service
 public class MedicalRecordService {
 

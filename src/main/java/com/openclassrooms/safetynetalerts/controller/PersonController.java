@@ -30,6 +30,7 @@ public class PersonController {
 	private PersonServiceImpl personService;
 
 	@GetMapping("/person")
+	@ResponseBody
 	public Object getPersons()  {
 		Object persons = personService.getAllPersons();
 		return persons;
@@ -53,6 +54,7 @@ public class PersonController {
  	}
 	
 	@GetMapping("person/{firstName}/{lastName}")
+	@ResponseBody
 	public Person findByName(@PathVariable String firstName, @PathVariable String lastName) throws Exception {
 		Person person = personService.findByName(firstName,lastName);
 		return person;

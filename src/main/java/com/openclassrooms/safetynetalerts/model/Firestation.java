@@ -13,9 +13,8 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-@Data
-@AllArgsConstructor
-//@Table(name = "firestations")
+//@Data
+//@AllArgsConstructor
 public class Firestation {
 	
 	private String address;
@@ -29,6 +28,22 @@ public class Firestation {
 	public String toString() {
 		return station;
 		
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getStation() {
+		return station;
+	}
+
+	public void setStation(String station) {
+		this.station = station;
 	}
 
 }
