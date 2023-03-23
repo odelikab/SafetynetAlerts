@@ -14,12 +14,12 @@ import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-@Data
-@AllArgsConstructor
+//@Data
+//@AllArgsConstructor
 //@JsonInclude(JsonInclude.Include.NON_NULL)
 
 public class Person {
-	@NotNull
+	@NotBlank
     private String firstName;
 	@NotBlank
     private String lastName;
@@ -28,25 +28,23 @@ public class Person {
     private String zip;
     private String phone;
     private String email;
-    @JsonIgnore
-    private String birthdate;
 
-    @Override
-    public boolean equals(Object o) {
-        // self check
-        if (this == o)
-            return true;
-        // null check
-        if (o == null)
-            return false;
-        // type check and cast
-        if (getClass() != o.getClass())
-            return false;
-        Person person = (Person) o;
-        // field comparison
-        return Objects.equals(firstName, person.firstName)
-                && Objects.equals(lastName, person.lastName);
-    }
+//    @Override
+//    public boolean equals(Object o) {
+//        // self check
+//        if (this == o)
+//            return true;
+//        // null check
+//        if (o == null)
+//            return false;
+//        // type check and cast
+//        if (getClass() != o.getClass())
+//            return false;
+//        Person person = (Person) o;
+//        // field comparison
+//        return Objects.equals(firstName, person.firstName)
+//                && Objects.equals(lastName, person.lastName);
+//    }
 
 	public Person() {
 		// TODO Auto-generated constructor stub
@@ -58,6 +56,60 @@ public class Person {
 		this.lastName = lastName;
 	}
 
-	
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getZip() {
+		return zip;
+	}
+
+	public void setZip(String zip) {
+		this.zip = zip;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
 }

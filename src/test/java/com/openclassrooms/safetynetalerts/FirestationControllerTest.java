@@ -59,8 +59,17 @@ public class FirestationControllerTest {
             .andExpect(status().isOk())
             .andDo(print())
             .andExpect(jsonPath("$.address", is("123 address")));
+    }
+    
+    @Test
+    public void testAddFirestationNew() throws Exception {
+    	        mockMvc.perform(post("/firestation").param("address","123 address").param("station","5"))
+            .andExpect(status().isOk())
+            .andDo(print())
+            .andExpect(jsonPath("$.address", is("123 address")));
 
     }
+
     
     @Test
     public void testModifyFirestation() throws Exception {
@@ -95,7 +104,7 @@ public class FirestationControllerTest {
     	mockMvc.perform(get("/fire").param("address", "748 Townings Dr"))
 		.andExpect(status().isOk())
 		.andDo(print())
-        .andExpect(jsonPath("$.['[3]'].[0].firstName", is("Foster")));
+        .andExpect(jsonPath("$.['[3, 3]'].[0].firstName", is("Foster")));
     }
     
     @Test

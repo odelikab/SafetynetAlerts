@@ -46,7 +46,7 @@ public class FirestationController {
 		
 	@GetMapping("/firestation")
 	public Object findAddressByStationNumber(@RequestParam(required=false, defaultValue = "0") int stationNumber) throws IOException, ParseException {
-		logger.info("request get OK .....");
+		logger.info("request get OK station " + stationNumber);
 		if(stationNumber==0) {
 			return firestationService.getAllFirestations();
 		}
@@ -55,22 +55,26 @@ public class FirestationController {
 	
 	@PutMapping("/firestation/{station}")
 	public Firestation updateFirestation(@PathVariable("station") String station, @RequestBody Firestation firestation) {
-		 return firestationService.updateFirestation(firestation);
+		logger.info("put request for station " + station);
+		return firestationService.updateFirestation(firestation);
 	}
 	
 	@DeleteMapping("/firestation")
 	public ResponseEntity<Firestation> deleteFirestation( Firestation firestation) {
+		logger.info("delete request for station " + firestation);
 		firestationService.deleteFirestation(firestation);
 		return new ResponseEntity<Firestation>(firestation,HttpStatus.GONE);
  	}
 	
 	@GetMapping("/phoneAlert")
 	public List<String> phoneAlert(@RequestParam("firestation") int station)  {
+		logger.info("Phone numbers list request for station " + station);
 		return firestationService.getPhoneNumberByStation(station);
 	}
 	
 	@GetMapping("/fire")
 	public Object getPersonsByAddress(@RequestParam String address) throws ParseException  {
+		logger.info("Persons list for address " + address);
 		return firestationService.getPersonsByAddress(address);
 	}
 	
