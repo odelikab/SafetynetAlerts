@@ -7,7 +7,7 @@ import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 import com.openclassrooms.safetynetalerts.model.MedicalRecord;
 import com.openclassrooms.safetynetalerts.model.Person;
 import com.openclassrooms.safetynetalerts.model.DTO.PersonDTO;
-import com.openclassrooms.safetynetalerts.repositery.PersonRepository;
+import com.openclassrooms.safetynetalerts.repository.PersonRepository;
 import com.openclassrooms.safetynetalerts.service.PersonService;
 import com.openclassrooms.safetynetalerts.service.PersonServiceImpl;
 
@@ -35,16 +35,15 @@ public class PersonController {
 
 
 	@GetMapping("/person")
-	@ResponseBody
 	public Object getPersons()  {
 		Object persons = personService.getAllPersons();
 		return persons;
 	}
 	
 	@PostMapping("/person")
-	public Person addPerson(@RequestBody Person person) {
+	public ResponseEntity<Person> addPerson(@RequestBody Person person) {
 		Person personAdded = personService.addPerson(person);
-	 return personAdded;
+	 return new ResponseEntity<Person>(personAdded,HttpStatus.CREATED);
 	}
 //	
 	@PutMapping("/person")
@@ -53,14 +52,13 @@ public class PersonController {
 	}
 //	
 	@DeleteMapping("/person")
-	public Person deletePerson(@RequestParam String firstName, @RequestParam String lastName) throws Exception {
+	public ResponseEntity<Person> deletePerson(@RequestParam String firstName, @RequestParam String lastName) throws Exception {
 		Person personDeleted = personService.deletePerson(firstName,lastName);
-		return personDeleted;
+		return new ResponseEntity<Person>(personDeleted,HttpStatus.GONE);
  	}
 	
 	@GetMapping("person/{firstName}/{lastName}")
-	@ResponseBody
-	public Person findByName(@PathVariable String firstName, @PathVariable String lastName) throws Exception {
+		public Person findByName(@PathVariable String firstName, @PathVariable String lastName) throws Exception {
 		Person person = personService.findByName(firstName,lastName);
 		return person;
  	}

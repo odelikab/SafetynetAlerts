@@ -1,0 +1,8 @@
+2023-03-24 17:57:10,985 [main] INFO  c.o.s.SafetynetAlertsApplication - Starting SafetynetAlertsApplication using Java 17.0.5 with PID 26744 (C:\STS\safetynetalerts\target\classes started by user in C:\STS\safetynetalerts)
+2023-03-24 17:57:11,019 [main] DEBUG c.o.s.SafetynetAlertsApplication - Running with Spring Boot v3.0.2, Spring v6.0.4
+2023-03-24 17:57:11,024 [main] INFO  c.o.s.SafetynetAlertsApplication - No active profile set, falling back to 1 default profile: "default"
+2023-03-24 17:57:22,577 [main] INFO  c.o.s.SafetynetAlertsApplication - Started SafetynetAlertsApplication in 13.067 seconds (process running for 17.153)
+2023-03-24 17:59:46,970 [main] INFO  c.o.s.SafetynetAlertsApplication - Starting SafetynetAlertsApplication using Java 17.0.5 with PID 11048 (C:\STS\safetynetalerts\target\classes started by user in C:\STS\safetynetalerts)
+2023-03-24 17:59:46,992 [main] DEBUG c.o.s.SafetynetAlertsApplication - Running with Spring Boot v3.0.2, Spring v6.0.4
+2023-03-24 17:59:46,994 [main] INFO  c.o.s.SafetynetAlertsApplication - No active profile set, falling back to 1 default profile: "default"
+2023-03-24 17:59:59,856 [main] INFO  c.o.s.SafetynetAlertsApplication - Started SafetynetAlertsApplication in 14.487 seconds (process running for 18.703)

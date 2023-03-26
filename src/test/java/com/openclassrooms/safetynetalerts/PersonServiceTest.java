@@ -18,8 +18,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 
 import com.openclassrooms.safetynetalerts.model.MedicalRecord;
 import com.openclassrooms.safetynetalerts.model.Person;
-import com.openclassrooms.safetynetalerts.repositery.MedicalRecordRepository;
-import com.openclassrooms.safetynetalerts.repositery.PersonRepository;
+import com.openclassrooms.safetynetalerts.repository.MedicalRecordRepository;
+import com.openclassrooms.safetynetalerts.repository.PersonRepository;
 import com.openclassrooms.safetynetalerts.service.PersonServiceImpl;
 
 @SpringBootTest

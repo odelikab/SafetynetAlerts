@@ -1,0 +1,26 @@
+2023-03-26 03:25:01,109 [http-nio-8080-exec-5] INFO  c.o.s.c.FirestationController - get addresses from station 1
+2023-03-26 03:25:37,156 [http-nio-8080-exec-6] INFO  c.o.s.c.FirestationController - get addresses from station 4
+2023-03-26 03:26:33,815 [http-nio-8080-exec-7] INFO  c.o.s.c.FirestationController - get addresses from station 5
+2023-03-26 03:31:00,110 [main] INFO  c.o.s.SafetynetAlertsApplication - Starting SafetynetAlertsApplication using Java 17.0.5 with PID 20832 (C:\STS\safetynetalerts\target\classes started by user in C:\STS\safetynetalerts)
+2023-03-26 03:31:00,121 [main] DEBUG c.o.s.SafetynetAlertsApplication - Running with Spring Boot v3.0.2, Spring v6.0.4
+2023-03-26 03:31:00,125 [main] INFO  c.o.s.SafetynetAlertsApplication - No active profile set, falling back to 1 default profile: "default"
+2023-03-26 03:31:06,782 [main] INFO  c.o.s.SafetynetAlertsApplication - Started SafetynetAlertsApplication in 7.536 seconds (process running for 9.715)
+2023-03-26 03:31:24,985 [http-nio-8080-exec-2] INFO  c.o.s.c.FirestationController - get addresses of  station 5
+2023-03-26 03:33:08,954 [main] INFO  c.o.s.FirestationControllerTest - Starting FirestationControllerTest using Java 17.0.5 with PID 20392 (started by user in C:\STS\safetynetalerts)
+2023-03-26 03:33:09,000 [main] DEBUG c.o.s.FirestationControllerTest - Running with Spring Boot v3.0.2, Spring v6.0.4
+2023-03-26 03:33:09,003 [main] INFO  c.o.s.FirestationControllerTest - No active profile set, falling back to 1 default profile: "default"
+2023-03-26 03:33:34,778 [main] INFO  c.o.s.FirestationControllerTest - Started FirestationControllerTest in 27.992 seconds (process running for 37.749)
+2023-03-26 03:33:37,681 [main] INFO  c.o.s.c.FirestationController - put request for station 1
+2023-03-26 03:33:38,060 [main] INFO  c.o.s.c.FirestationController - delete request for station 1
+2023-03-26 03:33:38,104 [main] INFO  c.o.s.c.FirestationController - Persons list for address 748 Townings Dr
+2023-03-26 03:33:38,474 [main] INFO  c.o.s.c.FirestationController - All stations
+2023-03-26 03:33:38,598 [main] INFO  c.o.s.c.FirestationController - get addresses of  station 1
+2023-03-26 03:33:38,637 [main] INFO  c.o.s.c.FirestationController - Phone numbers list request for station 1
+2023-03-26 03:35:13,521 [main] INFO  c.o.s.MedicalRecordControllerTest - Starting MedicalRecordControllerTest using Java 17.0.5 with PID 8892 (started by user in C:\STS\safetynetalerts)
+2023-03-26 03:35:13,537 [main] DEBUG c.o.s.MedicalRecordControllerTest - Running with Spring Boot v3.0.2, Spring v6.0.4
+2023-03-26 03:35:13,540 [main] INFO  c.o.s.MedicalRecordControllerTest - No active profile set, falling back to 1 default profile: "default"
+2023-03-26 03:35:35,116 [main] INFO  c.o.s.MedicalRecordControllerTest - Started MedicalRecordControllerTest in 23.73 seconds (process running for 31.782)
+2023-03-26 03:36:49,472 [main] INFO  c.o.s.PersonControllerTest - Starting PersonControllerTest using Java 17.0.5 with PID 11952 (started by user in C:\STS\safetynetalerts)
+2023-03-26 03:36:49,506 [main] DEBUG c.o.s.PersonControllerTest - Running with Spring Boot v3.0.2, Spring v6.0.4
+2023-03-26 03:36:49,519 [main] INFO  c.o.s.PersonControllerTest - No active profile set, falling back to 1 default profile: "default"
+2023-03-26 03:37:10,976 [main] INFO  c.o.s.PersonControllerTest - Started PersonControllerTest in 23.013 seconds (process running for 31.184)

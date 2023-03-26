@@ -1,4 +1,4 @@
-package com.openclassrooms.safetynetalerts.repositery;
+package com.openclassrooms.safetynetalerts.repository;
 
 import java.io.IOException;
 import java.text.ParseException;

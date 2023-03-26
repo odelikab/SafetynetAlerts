@@ -23,13 +23,11 @@ public class Firestation {
 	private String station;
 	
 	public Firestation() {
-		
 	}
 	
 	@Override
 	public String toString() {
 		return station;
-		
 	}
 
 	public String getAddress() {

@@ -46,16 +46,17 @@ public class FirestationController {
 		
 	@GetMapping("/firestation")
 	public Object findAddressByStationNumber(@RequestParam(required=false, defaultValue = "0") int stationNumber) throws IOException, ParseException {
-		logger.info("request get OK station " + stationNumber);
 		if(stationNumber==0) {
+			logger.info("All stations");
 			return firestationService.getAllFirestations();
 		}
+		logger.info("get addresses of  station {}", stationNumber);
 		return firestationService.findAddressByStationNumber(stationNumber);
 	}
 	
 	@PutMapping("/firestation/{station}")
 	public Firestation updateFirestation(@PathVariable("station") String station, @RequestBody Firestation firestation) {
-		logger.info("put request for station " + station);
+		logger.info("put request for station {}", station);
 		return firestationService.updateFirestation(firestation);
 	}
 	
@@ -79,7 +80,6 @@ public class FirestationController {
 	}
 	
 	@GetMapping("/flood/stations")
-	
 	public Object getFlood(@RequestParam List<Integer> stations) throws ParseException {
 		return firestationService.getFlood(stations);
 	}

@@ -20,7 +20,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import com.openclassrooms.safetynetalerts.model.Firestation;
 import com.openclassrooms.safetynetalerts.model.MedicalRecord;
 import com.openclassrooms.safetynetalerts.model.Person;
-import com.openclassrooms.safetynetalerts.repositery.FirestationRepository;
+import com.openclassrooms.safetynetalerts.repository.FirestationRepository;
 import com.openclassrooms.safetynetalerts.service.FirestationService;
 import com.openclassrooms.safetynetalerts.service.MedicalRecordService;
 import com.openclassrooms.safetynetalerts.service.PersonServiceImpl;

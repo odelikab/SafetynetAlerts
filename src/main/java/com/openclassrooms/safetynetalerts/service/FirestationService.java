@@ -14,7 +14,7 @@ import com.openclassrooms.safetynetalerts.model.Firestation;
 import com.openclassrooms.safetynetalerts.model.MedicalRecord;
 import com.openclassrooms.safetynetalerts.model.Person;
 import com.openclassrooms.safetynetalerts.model.DTO.PersonDTO;
-import com.openclassrooms.safetynetalerts.repositery.FirestationRepository;
+import com.openclassrooms.safetynetalerts.repository.FirestationRepository;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -55,14 +55,14 @@ public class PersonControllerTest {
 //    	String jsonContent = objectMapper.writeValueAsString(userToSave);
         mockMvc.perform(MockMvcRequestBuilders.post("/person").contentType(MediaType.APPLICATION_JSON_VALUE)
         		.content("{\"firstName\": \"Thomas\",\"lastName\": \"Boyd\"}"))
-            .andExpect(status().isOk())
+            .andExpect(status().isCreated())
             .andExpect(jsonPath("$.firstName", is("Thomas")));
     }
     
     @Test
     public void testDeletePersons() throws Exception {
     	mockMvc.perform(MockMvcRequestBuilders.delete("/person").param("firstName", "John").param("lastName", "Boyd"))
-		.andExpect(status().isOk())
+		.andExpect(status().isGone())
         .andExpect(jsonPath("$.firstName", is("John")))
 		.andReturn();
     }
