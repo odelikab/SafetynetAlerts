@@ -27,7 +27,7 @@ public class FirestationService {
 	@Autowired
 	private FirestationRepository firestationRepository;
 	@Autowired
-	private PersonServiceImpl personServiceImpl;
+	private PersonService personServiceImpl;
 	@Autowired
 	private MedicalRecordService medicalRecordService;
 	

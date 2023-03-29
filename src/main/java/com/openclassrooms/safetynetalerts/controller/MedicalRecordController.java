@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.openclassrooms.safetynetalerts.model.MedicalRecord;
 import com.openclassrooms.safetynetalerts.model.Person;
 import com.openclassrooms.safetynetalerts.service.MedicalRecordService;
-import com.openclassrooms.safetynetalerts.service.PersonServiceImpl;
+import com.openclassrooms.safetynetalerts.service.PersonService;
 
 @RestController
 @RequestMapping("/medicalRecord")

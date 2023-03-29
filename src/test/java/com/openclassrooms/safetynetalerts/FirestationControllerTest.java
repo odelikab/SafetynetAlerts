@@ -35,26 +35,28 @@ public class FirestationControllerTest {
 //    FirestationService firestationService;
 
     @Test
-    public void testGetFirestation0() throws Exception {
+    public void testGetAllFirestations() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/firestation"))
             .andExpect(status().isOk())
         .andExpect(jsonPath("$.1.[0]", is("644 Gershwin Cir")));
-
     }
 
     @Test
-    public void testGetFirestations() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/firestation").param("stationNumber", "1"))
+    public void testGetFirestation() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/firestation").param("stationNumber","1"))
             .andExpect(status().isOk())
         .andExpect(jsonPath("$.['[1, {adults=5, child=1}]'].[0].firstName", is("Peter")));
-
+    }
+    
+    @Test
+    public void testGetUnkwownFirestation() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/firestation").param("stationNumber","5"))
+            .andExpect(status().isOk());
+//        .andExpect(jsonPath("$.['[1, {adults=5, child=1}]'].[0].firstName", is("Peter")));
     }
     
     @Test
     public void testAddFirestation() throws Exception {
-    	String jsonContent = "{\r\n"
-    			+ "    \"firstName\": \"John\",\r\n"
-    			+ "    \"lastName\": \"Boyd\"}";
         mockMvc.perform(post("/firestation").param("address","123 address").param("station","1"))
             .andExpect(status().isOk())
             .andDo(print())
@@ -67,9 +69,7 @@ public class FirestationControllerTest {
             .andExpect(status().isOk())
             .andDo(print())
             .andExpect(jsonPath("$.address", is("123 address")));
-
     }
-
     
     @Test
     public void testModifyFirestation() throws Exception {
@@ -80,7 +80,6 @@ public class FirestationControllerTest {
   	      .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$.station", is("1")));
-
     }
     
     @Test
@@ -89,7 +88,6 @@ public class FirestationControllerTest {
 		.andExpect(status().isGone())
         .andExpect(jsonPath("$.address", is("123 address")));
 //		.andReturn();
-
     }
     
     @Test

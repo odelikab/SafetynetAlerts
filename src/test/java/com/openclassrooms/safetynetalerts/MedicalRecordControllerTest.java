@@ -20,7 +20,7 @@ import com.openclassrooms.safetynetalerts.controller.MedicalRecordController;
 import com.openclassrooms.safetynetalerts.controller.PersonController;
 import com.openclassrooms.safetynetalerts.model.MedicalRecord;
 import com.openclassrooms.safetynetalerts.service.MedicalRecordService;
-import com.openclassrooms.safetynetalerts.service.PersonServiceImpl;
+import com.openclassrooms.safetynetalerts.service.PersonService;
 @SpringBootTest
 @AutoConfigureMockMvc
 //@WebMvcTest(controllers = MedicalRecordController.class)

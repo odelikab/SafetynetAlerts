@@ -36,22 +36,31 @@ public class FirestationController {
 	private FirestationService firestationService;
 	
     private static final Logger logger = LoggerFactory.getLogger(FirestationController.class);
-
 	
 	@PostMapping("/firestation")
 	public Firestation addFirestation( Firestation firestation) {
+		logger.info("add station {}", firestation);
 		Firestation firestationAdded = firestationService.addFirestation(firestation);
 	 return firestationAdded;
 	}
 		
 	@GetMapping("/firestation")
-	public Object findAddressByStationNumber(@RequestParam(required=false, defaultValue = "0") int stationNumber) throws IOException, ParseException {
-		if(stationNumber==0) {
-			logger.info("All stations");
-			return firestationService.getAllFirestations();
-		}
-		logger.info("get addresses of  station {}", stationNumber);
-		return firestationService.findAddressByStationNumber(stationNumber);
+	public Object findAddressByStationNumber(@RequestParam(required=false, defaultValue = "0") int stationNumber) throws Throwable {
+		
+			if (stationNumber == 0) {
+				logger.warn("no station specified, displaying all stations");
+				return firestationService.getAllFirestations();
+			} else {
+				
+				logger.info("getting addresses of station {}", stationNumber);
+				return firestationService.findAddressByStationNumber(stationNumber);
+			}
+		 
+			// TODO Auto-generated catch block
+//			logger.error("station {} not found", stationNumber);
+//			e.printStackTrace();
+//			return null;
+		 
 	}
 	
 	@PutMapping("/firestation/{station}")

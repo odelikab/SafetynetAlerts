@@ -20,7 +20,7 @@ import com.openclassrooms.safetynetalerts.model.MedicalRecord;
 import com.openclassrooms.safetynetalerts.model.Person;
 import com.openclassrooms.safetynetalerts.repository.MedicalRecordRepository;
 import com.openclassrooms.safetynetalerts.repository.PersonRepository;
-import com.openclassrooms.safetynetalerts.service.PersonServiceImpl;
+import com.openclassrooms.safetynetalerts.service.PersonService;
 
 @SpringBootTest
 public class PersonServiceTest {
@@ -31,7 +31,7 @@ public class PersonServiceTest {
 	private PersonRepository personRepo;
 	
 	@Autowired
-	private PersonServiceImpl personServiceImpl;
+	private PersonService personServiceImpl;
 	
 	@Test
 	public void testFindByName() {

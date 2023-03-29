@@ -23,7 +23,7 @@ import com.openclassrooms.safetynetalerts.model.Person;
 import com.openclassrooms.safetynetalerts.repository.FirestationRepository;
 import com.openclassrooms.safetynetalerts.service.FirestationService;
 import com.openclassrooms.safetynetalerts.service.MedicalRecordService;
-import com.openclassrooms.safetynetalerts.service.PersonServiceImpl;
+import com.openclassrooms.safetynetalerts.service.PersonService;
 
 @SpringBootTest
 public class FirestationServiceTest {
@@ -31,7 +31,7 @@ public class FirestationServiceTest {
 @MockBean
 private FirestationRepository firestationRepo;
 @MockBean
-private PersonServiceImpl personServiceImpl;
+private PersonService personServiceImpl;
 @MockBean
 private MedicalRecordService medicalRecordService;
 

@@ -9,7 +9,7 @@ import com.openclassrooms.safetynetalerts.model.Person;
 import com.openclassrooms.safetynetalerts.model.DTO.PersonDTO;
 import com.openclassrooms.safetynetalerts.repository.PersonRepository;
 import com.openclassrooms.safetynetalerts.service.PersonService;
-import com.openclassrooms.safetynetalerts.service.PersonServiceImpl;
+import com.openclassrooms.safetynetalerts.service.PersonService;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -29,10 +29,9 @@ import org.springframework.web.bind.annotation.*;
 public class PersonController {
 	
 	@Autowired
-	private PersonServiceImpl personService;
+	private PersonService personService;
 	
     private static final Logger logger = LoggerFactory.getLogger(PersonController.class);
-
 
 	@GetMapping("/person")
 	public Object getPersons()  {
