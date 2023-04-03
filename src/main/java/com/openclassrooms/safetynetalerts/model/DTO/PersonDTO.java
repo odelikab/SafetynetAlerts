@@ -32,7 +32,6 @@ public class PersonDTO {
 	private MedicalRecord medicalRecord;
 	private String medication;
 	private String allergies;
-	private String station;
 	
 	
 	public String getFirstName() {
@@ -106,12 +105,6 @@ public class PersonDTO {
 	}
 	public void setAllergies(String allergies) {
 		this.allergies = allergies;
-	}
-	public String getStation() {
-		return station;
-	}
-	public void setStation(String station) {
-		this.station = station;
 	}
 	
 }

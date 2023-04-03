@@ -38,23 +38,27 @@ public class MedicalRecordController {
 	@GetMapping
 	public List<MedicalRecord> getMedicalRecords()  {
 		List<MedicalRecord> medicalRecords = medicalRecordService.getAllMedicalRecords();
+		logger.info("getting all medical records");
 		return medicalRecords;
 	}
 	
 	@PostMapping
 	public ResponseEntity<MedicalRecord> addMedicalRecord( MedicalRecord medicalRecord) {
 		MedicalRecord medicalRecordAdded = medicalRecordService.addMedicalRecord(medicalRecord);
-	 return new ResponseEntity<MedicalRecord>(medicalRecordAdded,HttpStatus.CREATED);
+		logger.info("adding record : {}", medicalRecord);
+		return new ResponseEntity<MedicalRecord>(medicalRecordAdded,HttpStatus.CREATED);
 	}
 	
 	@PutMapping
 	public MedicalRecord updateMedicalRecord( MedicalRecord medicalRecord) {
+		logger.info("updating record : {}", medicalRecord);
 		return medicalRecordService.updateMedicalRecord(medicalRecord);
 	}
 	
 	@DeleteMapping
 	public ResponseEntity<MedicalRecord> deleteMedicalRecord(@RequestParam String firstName, @RequestParam String lastName)  {
 		MedicalRecord medicalRecordDeleted = medicalRecordService.deleteMedicalRecord(firstName,lastName);
+		logger.info("deleting record : {}", medicalRecordDeleted);
 		return new ResponseEntity<MedicalRecord>(medicalRecordDeleted,HttpStatus.GONE);
  	}
 	

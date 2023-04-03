@@ -1,9 +1,7 @@
 package com.openclassrooms.safetynetalerts.controller;
 
-import java.io.IOException;
 import java.text.ParseException;
 import java.util.List;
-import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,82 +14,73 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.openclassrooms.safetynetalerts.model.Firestation;
-import com.openclassrooms.safetynetalerts.model.Person;
 import com.openclassrooms.safetynetalerts.service.FirestationService;
 
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping
 public class FirestationController {
-	
+
 	@Autowired
 	private FirestationService firestationService;
-	
-    private static final Logger logger = LoggerFactory.getLogger(FirestationController.class);
-	
+
+	private static final Logger logger = LoggerFactory.getLogger(FirestationController.class);
+
 	@PostMapping("/firestation")
-	public Firestation addFirestation( Firestation firestation) {
+	public Firestation addFirestation(Firestation firestation) {
 		logger.info("add station {}", firestation);
 		Firestation firestationAdded = firestationService.addFirestation(firestation);
-	 return firestationAdded;
+		return firestationAdded;
 	}
-		
+
 	@GetMapping("/firestation")
-	public Object findAddressByStationNumber(@RequestParam(required=false, defaultValue = "0") int stationNumber) throws Throwable {
-		
-			if (stationNumber == 0) {
-				logger.warn("no station specified, displaying all stations");
-				return firestationService.getAllFirestations();
-			} else {
-				
-				logger.info("getting addresses of station {}", stationNumber);
-				return firestationService.findAddressByStationNumber(stationNumber);
-			}
-		 
-			// TODO Auto-generated catch block
-//			logger.error("station {} not found", stationNumber);
-//			e.printStackTrace();
-//			return null;
-		 
+	public Object findAddressByStationNumber(@RequestParam(required = true) int stationNumber) {
+		try {
+			logger.info("getting addresses of station {}", stationNumber);
+			return firestationService.findAddressByStationNumber(stationNumber);
+
+		} catch (Exception e) {
+			logger.error("exception raised {}", e);
+			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "failure", e);
+
+		}
 	}
-	
+
 	@PutMapping("/firestation/{station}")
-	public Firestation updateFirestation(@PathVariable("station") String station, @RequestBody Firestation firestation) {
+	public Firestation updateFirestation(@PathVariable("station") String station,
+			@RequestBody Firestation firestation) {
 		logger.info("put request for station {}", station);
 		return firestationService.updateFirestation(firestation);
 	}
-	
+
 	@DeleteMapping("/firestation")
-	public ResponseEntity<Firestation> deleteFirestation( Firestation firestation) {
-		logger.info("delete request for station " + firestation);
+	public ResponseEntity<Firestation> deleteFirestation(Firestation firestation) {
+		logger.info("delete request for station {}", firestation);
 		firestationService.deleteFirestation(firestation);
-		return new ResponseEntity<Firestation>(firestation,HttpStatus.GONE);
- 	}
-	
+		return new ResponseEntity<Firestation>(firestation, HttpStatus.GONE);
+	}
+
 	@GetMapping("/phoneAlert")
-	public List<String> phoneAlert(@RequestParam("firestation") int station)  {
-		logger.info("Phone numbers list request for station " + station);
+	public List<String> phoneAlert(@RequestParam("firestation") int station) {
+		logger.info("Phone numbers list request for station {} ", station);
 		return firestationService.getPhoneNumberByStation(station);
 	}
-	
+
 	@GetMapping("/fire")
-	public Object getPersonsByAddress(@RequestParam String address) throws ParseException  {
-		logger.info("Persons list for address " + address);
+	public Object getPersonsByAddress(@RequestParam String address) throws ParseException {
+		logger.info("Persons list for address {}", address);
 		return firestationService.getPersonsByAddress(address);
 	}
-	
+
 	@GetMapping("/flood/stations")
 	public Object getFlood(@RequestParam List<Integer> stations) throws ParseException {
+		logger.info("getting people for stations {}", stations);
 		return firestationService.getFlood(stations);
 	}
 }
-
-

@@ -35,45 +35,53 @@ public class PersonController {
 
 	@GetMapping("/person")
 	public Object getPersons()  {
+		logger.info("getting all persons");
 		Object persons = personService.getAllPersons();
 		return persons;
 	}
 	
 	@PostMapping("/person")
 	public ResponseEntity<Person> addPerson(@RequestBody Person person) {
+		logger.info("adding person {}", person);
 		Person personAdded = personService.addPerson(person);
 	 return new ResponseEntity<Person>(personAdded,HttpStatus.CREATED);
 	}
 //	
 	@PutMapping("/person")
 	public Person updatePerson(@RequestBody Person person) {
+		logger.info("updating person {}", person);
 		return personService.updatePerson(person);
 	}
 //	
 	@DeleteMapping("/person")
 	public ResponseEntity<Person> deletePerson(@RequestParam String firstName, @RequestParam String lastName) throws Exception {
+		logger.info("deleting person {} {}", firstName,lastName);
 		Person personDeleted = personService.deletePerson(firstName,lastName);
 		return new ResponseEntity<Person>(personDeleted,HttpStatus.GONE);
  	}
 	
 	@GetMapping("person/{firstName}/{lastName}")
 		public Person findByName(@PathVariable String firstName, @PathVariable String lastName) throws Exception {
+		logger.info("finding person {} {}", firstName,lastName);
 		Person person = personService.findByName(firstName,lastName);
 		return person;
  	}
 	
 	@GetMapping("/communityEmail")
 	public ArrayList<Object> getEmailsByCity(@RequestParam(defaultValue = "Culver") String city)  {
+		logger.info("getting emails of {}", city);
 		return personService.getEmailsByCity(city);
 	}
 
 	@GetMapping("/personInfo")
 	public Object personInfo(@RequestParam(required=false) String firstName, @RequestParam String lastName) throws ParseException  {
+		logger.info("getting info of person :{} {}", firstName,lastName);
 		return personService.getPersonInfo(firstName, lastName);
 	}
 	
 	@GetMapping("/childAlert")
 	public Iterable<PersonDTO> childAlert(@RequestParam String address) throws ParseException {
+		logger.info("getting children of {}", address);
 		Iterable<PersonDTO> persons = personService.getChildByAddress(address);
 //		SimpleBeanPropertyFilter monFiltre = SimpleBeanPropertyFilter.filterOutAllExcept("firstName", "lastName",
 //				"age","familyMembers");

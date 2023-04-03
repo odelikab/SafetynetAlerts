@@ -15,11 +15,6 @@ import com.openclassrooms.safetynetalerts.model.DTO.PersonDTO;
 import com.openclassrooms.safetynetalerts.repository.MedicalRecordRepository;
 import com.openclassrooms.safetynetalerts.repository.PersonRepository;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-
-//@Data
-@AllArgsConstructor
 @Service
 public class PersonService {
 
@@ -129,9 +124,6 @@ public class PersonService {
 	}
 
 	public Long getPersonAge(String firstName, String lastName, String birthdate) throws ParseException {
-		// TODO Auto-generated method stub
-//		 medicalRecord = medicalRecordRepo.findByName(firstName, lastName);
-//		String birthdate = medicalRecord.getBirthdate();
 		Date dateBirthdate = new SimpleDateFormat("dd/MM/yyyy").parse(birthdate);
 		long age = (System.currentTimeMillis() - dateBirthdate.getTime()) / 1000 / 60 / 60 / 24 / 365;
 		return age;

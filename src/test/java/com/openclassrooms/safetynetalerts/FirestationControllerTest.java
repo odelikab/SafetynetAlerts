@@ -1,6 +1,7 @@
 package com.openclassrooms.safetynetalerts;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -31,9 +32,7 @@ public class FirestationControllerTest {
     @Autowired
     private MockMvc mockMvc;
     
-//    @MockBean
-//    FirestationService firestationService;
-
+    
     @Test
     public void testGetAllFirestations() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/firestation"))
@@ -50,13 +49,14 @@ public class FirestationControllerTest {
     
     @Test
     public void testGetUnkwownFirestation() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/firestation").param("stationNumber","5"))
-            .andExpect(status().isOk());
-//        .andExpect(jsonPath("$.['[1, {adults=5, child=1}]'].[0].firstName", is("Peter")));
-    }
+        mockMvc.perform(get("/firestation").param("stationNumber","6"))
+        .andDo(print())
+            .andExpect(status().isOk())
+            .andExpect(result -> assertTrue(result.getResolvedException() instanceof Exception));
+            }
     
     @Test
-    public void testAddFirestation() throws Exception {
+    public void testAddKnownFirestation() throws Exception {
         mockMvc.perform(post("/firestation").param("address","123 address").param("station","1"))
             .andExpect(status().isOk())
             .andDo(print())
@@ -87,7 +87,6 @@ public class FirestationControllerTest {
     	mockMvc.perform(delete("/firestation").param("address", "123 address").param("station", "1"))
 		.andExpect(status().isGone())
         .andExpect(jsonPath("$.address", is("123 address")));
-//		.andReturn();
     }
     
     @Test
@@ -108,9 +107,8 @@ public class FirestationControllerTest {
     @Test
     public void testFloodStation() throws Exception {
     	mockMvc.perform(get("/flood/stations").param("stations", "2,3"))
-//		.andExpect(status().isOk())
+		.andExpect(status().isOk())
     	.andDo(print())
         .andExpect(jsonPath("$.2.['951 LoneTree Rd'].[0].firstName", is("Eric")));
     }
-
 }

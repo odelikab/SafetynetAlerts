@@ -17,7 +17,6 @@ import com.openclassrooms.safetynetalerts.model.DTO.PersonDTO;
 import com.openclassrooms.safetynetalerts.repository.FirestationRepository;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
 
 //@Data
 @AllArgsConstructor
@@ -30,11 +29,11 @@ public class FirestationService {
 	private PersonService personServiceImpl;
 	@Autowired
 	private MedicalRecordService medicalRecordService;
-	
-	public Map<Integer, List<String>> getAllFirestations() throws IOException    {
-	return firestationRepository.getAllFirestations();
+
+	public Map<Integer, List<String>> getAllFirestations() throws IOException {
+		return firestationRepository.getAllFirestations();
 	}
-	
+
 	public HashMap<Object, Object> findAddressByStationNumber(int stationNumber) throws ParseException {
 		List<String> addresses = firestationRepository.findAddressByStationNumber(stationNumber);
 		List<Object> persons = new ArrayList<>();
@@ -43,53 +42,63 @@ public class FirestationService {
 		int adults = 0;
 		int child = 0;
 		HashMap<Object, Object> mapCount = new HashMap<>();
-		for(String address : addresses) {
-			ArrayList<Person> personsByAddress = personServiceImpl.getPersonsByAddress(address);
-			for(Person person : personsByAddress) {
-				PersonDTO personDTO = new PersonDTO();
-				personDTO.setFirstName(person.getFirstName());
-				personDTO.setLastName(person.getLastName());
-				personDTO.setPhone(person.getPhone());
-				personDTO.setAddress(person.getAddress());
-				MedicalRecord medicalRecord = medicalRecordService.findByName(person.getFirstName(), person.getLastName());
-				String birthday = medicalRecord.getBirthdate();
-				personDTO.setAge(personServiceImpl.getPersonAge(person.getFirstName(), person.getLastName(),birthday));
-				persons.add(personDTO);
-				if(personDTO.getAge()>=18) { adults++; }
-				else { child++; }
-			} 
+		if (addresses == null)
+			return mapPersonsDTO;
+		else {
+			for (String address : addresses) {
+				ArrayList<Person> personsByAddress = personServiceImpl.getPersonsByAddress(address);
+				for (Person person : personsByAddress) {
+					PersonDTO personDTO = new PersonDTO();
+					personDTO.setFirstName(person.getFirstName());
+					personDTO.setLastName(person.getLastName());
+					personDTO.setPhone(person.getPhone());
+					personDTO.setAddress(person.getAddress());
+					MedicalRecord medicalRecord = medicalRecordService.findByName(person.getFirstName(),
+							person.getLastName());
+					String birthday = medicalRecord.getBirthdate();
+					personDTO.setAge(
+							personServiceImpl.getPersonAge(person.getFirstName(), person.getLastName(), birthday));
+					persons.add(personDTO);
+					if (personDTO.getAge() >= 18) {
+						adults++;
+					} else {
+						child++;
+					}
+				}
+			}
 		}
 		mapCount.put("adults", adults);
-		mapCount.put("child", child); obj.add(stationNumber);
-		obj.add(mapCount); 
+		mapCount.put("child", child);
+		obj.add(stationNumber);
+		obj.add(mapCount);
 		mapPersonsDTO.put(obj, persons);
 		return mapPersonsDTO;
 	}
-	
-	public List<Firestation> findFirestationByAddress(String address)  {
-	return firestationRepository.findFirestationByAddress(address);
+
+	public List<Firestation> findFirestationByAddress(String address) {
+		return firestationRepository.findFirestationByAddress(address);
 	}
-	
-	public Firestation addFirestation(Firestation firestation)  {
+
+	public Firestation addFirestation(Firestation firestation) {
 		firestationRepository.addFirestation(firestation);
 		return firestation;
 	}
-	
-    public Firestation deleteFirestation(Firestation firestation)   {
-    	return firestationRepository.deleteFirestation(firestation);
-    }
-    
-    public Firestation updateFirestation(Firestation firestation)  {
-    	return firestationRepository.updateFirestation(firestation);
-    }
+
+	public Firestation deleteFirestation(Firestation firestation) {
+		return firestationRepository.deleteFirestation(firestation);
+	}
+
+	public Firestation updateFirestation(Firestation firestation) {
+		return firestationRepository.updateFirestation(firestation);
+	}
 
 	public List<String> getPhoneNumberByStation(int station) {
 		List<String> listStationAddress = firestationRepository.findAddressByStationNumber(station);
 		List<Person> listPersons = personServiceImpl.getAllPersons();
 		List<String> listPhoneNumbers = new ArrayList<>();
 		int i = 0;
-			for (String address : listStationAddress) {
-				while (i < listPersons.size()) {
+		for (String address : listStationAddress) {
+			while (i < listPersons.size()) {
 				if (listPersons.get(i).getAddress().equals(address)) {
 					listPhoneNumbers.add(listPersons.get(i).getPhone());
 				}
@@ -110,8 +119,9 @@ public class FirestationService {
 				personDTO.setFirstName(person.getFirstName());
 				personDTO.setLastName(person.getLastName());
 				personDTO.setPhone(person.getPhone());
-				String birthday = medicalRecordService.findByName(person.getFirstName(), person.getLastName()).getBirthdate();
-				personDTO.setAge(personServiceImpl.getPersonAge(person.getFirstName(), person.getLastName(),birthday));
+				String birthday = medicalRecordService.findByName(person.getFirstName(), person.getLastName())
+						.getBirthdate();
+				personDTO.setAge(personServiceImpl.getPersonAge(person.getFirstName(), person.getLastName(), birthday));
 				personDTO
 						.setMedicalRecord(medicalRecordService.findByName(person.getFirstName(), person.getLastName()));
 				listPersonsByAddress.add(personDTO);
@@ -120,7 +130,7 @@ public class FirestationService {
 		mapPersons.put(findFirestationByAddress(address), listPersonsByAddress);
 		return mapPersons;
 	}
-	
+
 	public HashMap<Object, Object> getFlood(List<Integer> stations) throws ParseException {
 //		Map<Integer,Map<String,PersonDTO>> mapPersons = new HashMap<>();
 		HashMap<Object, Object> mapFlood = new HashMap<>();
@@ -131,7 +141,7 @@ public class FirestationService {
 			for (String address : listAddress) {
 				ArrayList<Object> listPersonsDTO = new ArrayList<>();
 				listPersons = personServiceImpl.getPersonsByAddress(address);
-				for(Person person : listPersons) {
+				for (Person person : listPersons) {
 					PersonDTO personDTO = new PersonDTO();
 					personDTO.setFirstName(person.getFirstName());
 					personDTO.setLastName(person.getLastName());
@@ -139,9 +149,10 @@ public class FirestationService {
 					MedicalRecord medicalRecord = new MedicalRecord();
 					medicalRecord = medicalRecordService.findByName(person.getFirstName(), person.getLastName());
 					String birthday = medicalRecord.getBirthdate();
-					personDTO.setAge(personServiceImpl.getPersonAge(person.getFirstName(), person.getLastName(),birthday));
-					personDTO
-					.setMedicalRecord(medicalRecordService.findByName(person.getFirstName(), person.getLastName()));				
+					personDTO.setAge(
+							personServiceImpl.getPersonAge(person.getFirstName(), person.getLastName(), birthday));
+					personDTO.setMedicalRecord(
+							medicalRecordService.findByName(person.getFirstName(), person.getLastName()));
 					listPersonsDTO.add(personDTO);
 				}
 				mapByAddress.put(address, listPersonsDTO);
