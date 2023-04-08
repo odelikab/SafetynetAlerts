@@ -39,19 +39,6 @@ public class FirestationController {
 		return firestationAdded;
 	}
 
-	@GetMapping("/firestation")
-	public Object findAddressByStationNumber(@RequestParam(required = true) int stationNumber) {
-		try {
-			logger.info("getting addresses of station {}", stationNumber);
-			return firestationService.findAddressByStationNumber(stationNumber);
-
-		} catch (Exception e) {
-			logger.error("exception raised {}", e);
-			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "failure", e);
-
-		}
-	}
-
 	@PutMapping("/firestation/{station}")
 	public Firestation updateFirestation(@PathVariable("station") String station,
 			@RequestBody Firestation firestation) {
@@ -66,18 +53,56 @@ public class FirestationController {
 		return new ResponseEntity<Firestation>(firestation, HttpStatus.GONE);
 	}
 
+	/**
+	 * Get addresses of a station provided
+	 * 
+	 * @param station Number
+	 * @return addresses of station number
+	 */
+	@GetMapping("/firestation")
+	public Object findAddressByStationNumber(@RequestParam(required = true) int stationNumber) {
+		try {
+			logger.info("getting addresses of station {}", stationNumber);
+			return firestationService.findAddressByStationNumber(stationNumber);
+
+		} catch (Exception e) {
+			logger.error("exception raised {}", e);
+			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "failure", e);
+		}
+	}
+
+	/**
+	 * Get all phone numbers of a station
+	 * 
+	 * @param station
+	 * @return phone numbers list
+	 */
 	@GetMapping("/phoneAlert")
 	public List<String> phoneAlert(@RequestParam("firestation") int station) {
 		logger.info("Phone numbers list request for station {} ", station);
 		return firestationService.getPhoneNumberByStation(station);
 	}
 
+	/**
+	 * Get persons of an address provided
+	 * 
+	 * @param address
+	 * @return persons list
+	 * @throws ParseException
+	 */
 	@GetMapping("/fire")
 	public Object getPersonsByAddress(@RequestParam String address) throws ParseException {
 		logger.info("Persons list for address {}", address);
 		return firestationService.getPersonsByAddress(address);
 	}
 
+	/**
+	 * Get persons of stations list provided
+	 * 
+	 * @param list of stations
+	 * @return persons list
+	 * @throws ParseException
+	 */
 	@GetMapping("/flood/stations")
 	public Object getFlood(@RequestParam List<Integer> stations) throws ParseException {
 		logger.info("getting people for stations {}", stations);

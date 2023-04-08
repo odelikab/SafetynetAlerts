@@ -18,7 +18,6 @@ import com.openclassrooms.safetynetalerts.repository.FirestationRepository;
 
 import lombok.AllArgsConstructor;
 
-//@Data
 @AllArgsConstructor
 @Service
 public class FirestationService {
@@ -36,15 +35,16 @@ public class FirestationService {
 
 	public HashMap<Object, Object> findAddressByStationNumber(int stationNumber) throws ParseException {
 		List<String> addresses = firestationRepository.findAddressByStationNumber(stationNumber);
-		List<Object> persons = new ArrayList<>();
-		List<Object> obj = new ArrayList<>();
 		HashMap<Object, Object> mapPersonsDTO = new HashMap<>();
-		int adults = 0;
-		int child = 0;
-		HashMap<Object, Object> mapCount = new HashMap<>();
 		if (addresses == null)
 			return mapPersonsDTO;
 		else {
+			List<Object> persons = new ArrayList<>();
+			List<Object> obj = new ArrayList<>();
+			int adults = 0;
+			int child = 0;
+			HashMap<Object, Object> mapCount = new HashMap<>();
+
 			for (String address : addresses) {
 				ArrayList<Person> personsByAddress = personServiceImpl.getPersonsByAddress(address);
 				for (Person person : personsByAddress) {
@@ -66,12 +66,12 @@ public class FirestationService {
 					}
 				}
 			}
+			mapCount.put("adults", adults);
+			mapCount.put("child", child);
+			obj.add(stationNumber);
+			obj.add(mapCount);
+			mapPersonsDTO.put(obj, persons);
 		}
-		mapCount.put("adults", adults);
-		mapCount.put("child", child);
-		obj.add(stationNumber);
-		obj.add(mapCount);
-		mapPersonsDTO.put(obj, persons);
 		return mapPersonsDTO;
 	}
 
@@ -109,7 +109,6 @@ public class FirestationService {
 	}
 
 	public HashMap<Object, Object> getPersonsByAddress(String address) throws ParseException {
-//		List<Firestation> listFire = firestationRepository.findFirestationByAddress(address);
 		List<Person> listPersons = personServiceImpl.getAllPersons();
 		List<PersonDTO> listPersonsByAddress = new ArrayList<>();
 		HashMap<Object, Object> mapPersons = new HashMap<>();
@@ -132,7 +131,6 @@ public class FirestationService {
 	}
 
 	public HashMap<Object, Object> getFlood(List<Integer> stations) throws ParseException {
-//		Map<Integer,Map<String,PersonDTO>> mapPersons = new HashMap<>();
 		HashMap<Object, Object> mapFlood = new HashMap<>();
 		for (Integer station : stations) {
 			HashMap<Object, Object> mapByAddress = new HashMap<>();

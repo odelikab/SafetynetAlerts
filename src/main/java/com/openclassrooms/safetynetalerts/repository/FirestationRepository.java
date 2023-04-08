@@ -32,11 +32,18 @@ public class FirestationRepository {
 		return mapFirestation;
 	}
 
+	/**
+	 * Find firestation address by station number
+	 * 
+	 * @param stationNumber
+	 * @return
+	 */
 	public List<String> findAddressByStationNumber(int stationNumber) {
 		return mapFirestation.get(stationNumber);
 	}
 
 	/**
+	 * Find firestation ID by address
 	 * 
 	 * @param stationAddress
 	 * @return
@@ -55,7 +62,6 @@ public class FirestationRepository {
 	}
 
 	public Firestation addFirestation(Firestation firestation) {
-		// TODO Auto-generated method stub
 		Integer station = Integer.valueOf(firestation.getStation());
 		if (mapFirestation.get(station) != null) {
 			mapFirestation.get(station).add(firestation.getAddress());
@@ -67,8 +73,6 @@ public class FirestationRepository {
 	}
 
 	public Firestation updateFirestation(Firestation firestationUpdate) {
-//		List<Firestation> firestation = findFirestationByAddress(firestationUpdate.getAddress());
-//		listFirestations.set(listFirestations.indexOf(firestation.get(0)), firestationUpdate);
 		for (Integer key : mapFirestation.keySet()) {
 			List<String> keyMap = mapFirestation.get(key);
 			if (keyMap.contains((firestationUpdate.getAddress()))) {

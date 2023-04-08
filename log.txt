@@ -1,1 +1,5 @@
-2023-04-02T13:59:16.698+02:00  WARN 13724 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1d19h44m33s977ms372µs500ns).
+2023-04-08T18:35:04.340+02:00  WARN 4392 --- [main] org.hibernate.orm.deprecation            : HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-04-08T18:35:05.741+02:00  WARN 4392 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-04-08T18:35:20.809+02:00  INFO 4392 --- [http-nio-8080-exec-1] c.o.s.controller.FirestationController   : getting addresses of station 4
+2023-04-08T18:35:33.138+02:00  INFO 4392 --- [http-nio-8080-exec-3] c.o.s.controller.FirestationController   : getting addresses of station 3
+2023-04-08T18:35:43.594+02:00  INFO 4392 --- [http-nio-8080-exec-4] c.o.s.controller.FirestationController   : getting addresses of station 5

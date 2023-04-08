@@ -76,14 +76,12 @@ public class PersonService {
 			}
 		}
 		return listPersonsDTO;
-
 	}
 
 	public Iterable<PersonDTO> getChildByAddress(String address) throws ParseException {
 		// TODO Auto-generated method stub
 		ArrayList<PersonDTO> listChildrenByAddress = new ArrayList<>();
 		List<Person> listPersons = personRepository.getAllPersons();
-//		 List<MedicalRecord> listMedicalRecords = medicalRecordService.getAllMedicalRecords();
 		MedicalRecord medicalRecord = new MedicalRecord();
 		for (Person person : listPersons) {
 			String firstName = person.getFirstName();
@@ -114,7 +112,6 @@ public class PersonService {
 
 	public ArrayList<Person> getPersonsByAddress(String address) {
 		ArrayList<Person> listPersons = new ArrayList<Person>();
-//		List<Person> listPersons = personRepository.getAllPersons();
 		for (Person person : personRepository.getAllPersons()) {
 			if (person.getAddress().equals(address)) {
 				listPersons.add(person);
