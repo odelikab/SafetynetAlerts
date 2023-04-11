@@ -18,19 +18,11 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-//@WebMvcTest(controllers = FirestationController.class)
 
 public class FirestationControllerTest {
 
 	@Autowired
 	private MockMvc mockMvc;
-
-//    @Test
-//    public void testGetAllFirestations() throws Exception {
-//        mockMvc.perform(MockMvcRequestBuilders.get("/firestation"))
-//            .andExpect(status().isOk())
-//        .andExpect(jsonPath("$.1.[0]", is("644 Gershwin Cir")));
-//    }
 
 	@Test
 	public void testGetFirestation() throws Exception {
@@ -42,7 +34,6 @@ public class FirestationControllerTest {
 	@Test
 	public void testGetUnkwownFirestation() throws Exception {
 		mockMvc.perform(get("/firestation").param("stationNumber", "6")).andDo(print()).andExpect(status().isOk());
-//            .andExpect(result -> assertTrue(result.getResolvedException() instanceof Exception));
 	}
 
 	@Test
